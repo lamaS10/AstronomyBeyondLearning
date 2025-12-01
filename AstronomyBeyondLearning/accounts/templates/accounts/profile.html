@@ -1,0 +1,75 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block title %} Profile — {{ profile_user.username }} {% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+
+<div class="profile-container">
+
+    <div class="profile-sidebar">
+
+        <img src="{% if profile_user.userprofile.profile_picture %}
+                    {{ profile_user.userprofile.profile_picture.url }}
+                  {% else %}
+                    /media/accounts/profile_pictures/default_userprofile_pic.png
+                  {% endif %}"
+             class="avatar">
+
+        <h2 class="username-display">@{{ profile_user.username }}</h2>
+
+        <p class="fullname">
+            {{ profile_user.first_name }} {{ profile_user.last_name }}
+        </p>
+
+        {% if request.user == profile_user %}
+        <a class="edit-btn" href="{% url 'accounts:update_profile' %}">
+            Edit Profile
+        </a>
+        {% endif %}
+
+    </div>
+
+
+    <div class="profile-right">
+
+        <h2 class="section-title">About</h2>
+
+        <p class="info-text"><strong>Email:</strong> {{ profile_user.email }}</p>
+
+        <p class="info-text"><strong>Bio:</strong> 
+            {% if profile_user.userprofile.bio %}
+                {{ profile_user.userprofile.bio }}
+            {% else %}
+                No bio available
+            {% endif %}
+        </p>
+
+        <p class="info-text"><strong>Website:</strong>
+            {% if profile_user.userprofile.website %}
+                <a href="{{ profile_user.userprofile.website }}" target="_blank" class="profile-link">
+                    {{ profile_user.userprofile.website }}
+                </a>
+            {% else %}
+                No website provided
+            {% endif %}
+        </p>
+
+
+
+        <div class="section-divider"></div>
+
+        <h2 class="section-title">Posts</h2>
+        <p class="posts-placeholder">
+            User posts will appear here once the feature is implemented.
+        </p>
+
+    </div>
+
+</div>
+
+{% endblock content %}

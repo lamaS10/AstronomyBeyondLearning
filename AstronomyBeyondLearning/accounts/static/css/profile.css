@@ -1,0 +1,129 @@
+
+.profile-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 130px;
+    transition: 0.35s ease;
+}
+
+.profile-container:hover {
+    box-shadow: 0 0 35px rgba(120, 150, 255, 0.35);
+    transform: translateY(-4px);
+}
+
+
+
+.profile-sidebar {
+    width: 320px;
+    background: url("/static/images/space-bg-profile.jpg") no-repeat center/cover;
+    padding: 30px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    border: 1px solid #222;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+
+
+    border-right: none;
+}
+
+.avatar {
+    width: 110px;
+    height: 110px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #4b7bec;
+    margin-bottom: 15px;
+}
+
+.username-display {
+    font-size: 22px;
+    font-weight: 600;
+    margin-top: 8px;
+    margin-bottom: 3px;
+    color: #fff;
+}
+
+.fullname {
+    color: #bbb;
+    margin-bottom: 10px;
+}
+
+.edit-btn {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 7px 16px;
+    background: #4b7bec;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+}
+
+.edit-btn:hover {
+    background: #6d8efc;
+}
+
+
+
+
+.profile-right {
+    background: #0e0e0e;
+    padding: 40px 45px;
+    border: 1px solid #222;
+    color: white;
+
+    width: 780px;
+
+    margin: 0;
+
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+
+    border-left: none;
+
+    box-shadow: 0 0 20px rgba(0,0,0,0.45);
+}
+
+.section-title {
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #fff;
+}
+
+.info-text {
+    font-size: 17px;
+    color: #dcdcdc;
+    line-height: 1.8;
+}
+
+.info-text strong {
+    color: #79a7ff;
+}
+
+.section-divider {
+    border-bottom: 1px solid #3c3c3c;
+    margin: 18px 0 25px;
+}
+
+.posts-placeholder {
+    color: #8f8f8f;
+    font-size: 16px;
+    padding-top: 8px;
+}
+
+.profile-link {
+    color: #7aa2ff;
+    text-decoration: none;   
+    transition: 0.25s ease;
+    font-weight: 500;
+}
+
+.profile-link:hover {
+    color: #a8c2ff;       
+    transform: translateY(-1px); 
+}
+
