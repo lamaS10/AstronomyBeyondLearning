@@ -1,0 +1,78 @@
+.account-container {
+    max-width: 600px;
+    margin: 60px auto;
+    padding: 30px;
+    background: #111;
+    border-radius: 12px;
+    border: 1px solid #333;
+}
+
+.form-title {
+    text-align: center;
+    margin-bottom: 25px;
+    color: white;
+    font-size: 30px;
+}
+
+.account-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    color: white;
+    margin-bottom: 5px;
+    font-size: 15px;
+}
+
+.account-form input,
+.account-form textarea,
+.account-form select {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #555;
+    background: #222;
+    color: white;
+}
+
+.submit-btn {
+    margin-top: 20px;
+    padding: 12px;
+    border: none;
+    background: #4b7bec;
+    color: white;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.submit-btn:hover {
+    background: #3867d6;
+}
+
+.messages {
+    margin-bottom: 15px;
+}
+
+.msg {
+    padding: 10px;
+    border-radius: 6px;
+}
+
+.msg.alert-success {
+    background: #2ecc71;
+}
+
+.msg.alert-danger {
+    background: #e74c3c;
+}
+
+.msg.alert-warning {
+    background: #f1c40f;
+}
