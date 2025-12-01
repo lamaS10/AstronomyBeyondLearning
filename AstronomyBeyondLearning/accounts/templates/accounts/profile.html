@@ -1,0 +1,66 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block title %} Profile — {{ profile_user.username }} {% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+
+<div class="profile-container">
+
+    <div class="profile-card">
+
+        <div class="profile-header">
+
+            <img src="{% if profile_user.userprofile.profile_picture %}
+                        {{ profile_user.userprofile.profile_picture.url }}
+                      {% else %}
+                        /media/accounts/profile_pictures/default_userprofile_pic.png
+                      {% endif %}"
+                 class="profile-img" >
+
+            <h2 class="username">{{ profile_user.username }}</h2>
+            <p class="fullname">
+                {{ profile_user.first_name|default:"No First Name" }}
+                {{ profile_user.last_name|default:"No Last Name" }}
+            </p>
+
+            {% if request.user == profile_user %}
+            <div class="edit-btn-wrapper">
+                <a href="{% url 'accounts:update_profile' %}" class="edit-text-btn">
+                    Edit Profile
+                </a>
+            </div>
+            {% endif %}
+
+        </div>
+
+        <div class="profile-info">
+
+            <p><strong>Email:</strong>
+                {{ profile_user.email|default:"No email provided" }}
+            </p>
+
+            <p><strong>Bio:</strong>
+                {{ profile_user.userprofile.bio|default:"No bio available" }}
+            </p>
+
+            <p><strong>Website:</strong>
+                {% if profile_user.userprofile.website %}
+                    <a href="{{ profile_user.userprofile.website }}" target="_blank">
+                        {{ profile_user.userprofile.website }}
+                    </a>
+                {% else %}
+                    No website provided
+                {% endif %}
+            </p>
+
+        </div>
+
+    </div>
+</div>
+
+{% endblock content %}

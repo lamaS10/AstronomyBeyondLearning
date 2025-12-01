@@ -4,26 +4,33 @@
 {% block title %} Sign Up — ABL {% endblock title %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/account/signup.css' %}">
+<link rel="stylesheet" href="{% static 'css/signup.css' %}">
 {% endblock extra_css %}
 
 {% block content %}
 
-<div class="account-container">
 
-    <h2 class="form-title">Create an Account</h2>
 
-    <form method="POST" enctype="multipart/form-data" class="account-form">
+<div class="auth-card">
+    <svg class="border-anim">
+        <rect class="path-blue"></rect>
+        <rect class="path-purple"></rect>
+    </svg>
+
+
+
+    <h2>Create an Account</h2>
+
+    {% if messages %}
+    <div class="messages">
+        {% for msg in messages %}
+            <p class="msg {{ msg.tags }}">{{ msg }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-
-        <!-- show messages -->
-        {% if messages %}
-            <div class="messages">
-                {% for msg in messages %}
-                    <p class="msg {{ msg.tags }}">{{ msg }}</p>
-                {% endfor %}
-            </div>
-        {% endif %}
 
         <div class="form-group">
             <label>Username</label>
@@ -48,12 +55,23 @@
         <div class="form-group">
             <label>Password</label>
             {{ form.password }}
+
+            <ul class="password-rules">
+                <li id="rule-length">At least 8 characters</li>
+                <li id="rule-upper">One uppercase letter (A-Z)</li>
+                <li id="rule-lower">One lowercase letter (a-z)</li>
+                <li id="rule-number">One number (0-9)</li>
+                <li id="rule-special">One special character (@$!%*?&#^+-)</li>
+            </ul>
         </div>
 
         <div class="form-group">
             <label>Confirm Password</label>
             {{ form.confirm_password }}
+
+            <p id="password-match" class="match-text"></p>
         </div>
+
 
         <div class="form-group">
             <label>Bio</label>
@@ -70,9 +88,21 @@
             {{ form.profile_picture }}
         </div>
 
-        <button type="submit" class="submit-btn">Create Account</button>
+        <button type="submit" class="primary-btn">Create Account</button>
+
     </form>
+
+    <p class="switch-link">
+        Already have an account?
+        <a href="{% url 'accounts:sign_in' %}">Sign In</a>
+    </p>
 
 </div>
 
 {% endblock content %}
+
+{% block extra_js %}
+<script src="{% static 'js/signup.js' %}"></script>
+
+
+{% endblock extra_js %}
