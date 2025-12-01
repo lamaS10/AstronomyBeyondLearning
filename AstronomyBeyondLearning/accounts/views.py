@@ -123,6 +123,9 @@ def log_out(request: HttpRequest):
     messages.success(request, "Logged out successfully", "alert-warning")
     return redirect(request.GET.get("next", "/")) 
 
+
+
+
 def update_user_profile(request: HttpRequest):
 
     if not request.user.is_authenticated:
@@ -145,13 +148,13 @@ def update_user_profile(request: HttpRequest):
                 profile.bio = request.POST.get("bio", profile.bio)
                 profile.website = request.POST.get("website", profile.website)
 
-
                 if "profile_picture" in request.FILES:
                     profile.profile_picture = request.FILES["profile_picture"]
 
                 profile.save()
 
-                messages.success(request, "Updated profile successfully", "alert-success")
+                messages.success(request, "Profile updated successfully!", "alert-success")
+                return redirect("accounts:user_profile_view", user_name=user.username)
 
         except Exception as e:
             messages.error(request, "Couldn't update profile", "alert-danger")

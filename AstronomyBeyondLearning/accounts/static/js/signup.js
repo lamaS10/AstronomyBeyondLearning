@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-    // ---------- PASSWORD VALIDATION ----------
     const passwordInput = document.getElementById("id_password");
     const confirmInput = document.getElementById("id_confirm_password");
     const matchText = document.getElementById("password-match");
