@@ -1,0 +1,34 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<section class="hero">
+
+    <video class="hero-video" autoplay muted loop playsinline>
+        <source src="{% static 'videos/hero.mp4' %}" type="video/mp4">
+    </video>
+
+    <div class="overlay"></div>
+
+    <div class="hero-content">
+        
+        <div class="abl-container">
+            <div class="abl-letters">
+                <span>A</span>
+                <span>B</span>
+                <span>L</span>
+            </div>
+
+            <div class="abl-words">
+                <span>Astronomy</span>
+                <span>Beyond</span>
+                <span>Learning</span>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock content %}

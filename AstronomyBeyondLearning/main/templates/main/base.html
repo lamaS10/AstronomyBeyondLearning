@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABL</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+
+    <nav class="top-navbar">
+
+        <div class="logo">
+            <a href="{% url 'main:home' %}" class="logo-glow">ABL</a>
+        </div>
+
+
+        <div class="nav-right">
+            <a href="#" class="nav-btn">About</a>
+            <a href="#" class="nav-btn">Log In</a>
+            <a href="#" class="nav-btn">Sign Up</a>
+        </div>
+
+    </nav>
+
+
+
+   
+    <main>
+        {% block content %}
+        {% endblock content %}
+    </main>
+
+  
+    <footer class="footer">
+        <div class="footer-wrapper">
+
+            <div class="footer-col site-name">
+                <h4 class="footer-glow">ABL</h4>
+                <div class="footer-icons">
+                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h4>Explore</h4>
+                <a href="#">Planets</a>
+                <a href="#">Quiz</a>
+                <a href="#">Secrets of the Universe</a>
+            </div>
+
+            <div class="footer-col">
+                <h4>Useful</h4>
+                <a href="#">About</a>
+                <a href="#">FAQ</a>
+                <a href="#">Terms</a>
+            </div>
+
+            <div class="footer-col">
+                <h4>More</h4>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Support</a>
+            </div>
+
+        </div>
+
+        <p class="footer-copy">© 2025 ABL — Astronomy Beyond Learning</p>
+    </footer>
+
+</body>
+
+</html>
