@@ -8,65 +8,66 @@
 {% endblock extra_css %}
 
 {% block content %}
+<div class="auth-wrapper">
 
-<div class="auth-card">
-    <svg class="border-anim">
-        <rect class="path-blue"></rect>
-        <rect class="path-purple"></rect>
-    </svg>
+    <div class="auth-card">
+        <svg class="border-anim">
+            <rect class="path-blue"></rect>
+            <rect class="path-purple"></rect>
+        </svg>
 
-    <h2>Sign In</h2>
+        <h2>Sign In</h2>
 
 
 
-    <form method="POST">
-        {% csrf_token %}
+        <form method="POST">
+            {% csrf_token %}
 
-        {% if form.non_field_errors %}
-            {% for error in form.non_field_errors %}
-                <p class="msg error">{{ error }}</p>
-            {% endfor %}
-        {% endif %}
+            {% if form.non_field_errors %}
+                {% for error in form.non_field_errors %}
+                    <p class="msg error">{{ error }}</p>
+                {% endfor %}
+            {% endif %}
 
-        <div class="form-group">
-            <label>Username</label>
-            <input
-                type="text"
-                name="username"
-                id="id_username"
-                value="{{ form.username.value|default:'' }}"
-                required
-            >
+            <div class="form-group">
+                <label>Username</label>
+                <input
+                    type="text"
+                    name="username"
+                    id="id_username"
+                    value="{{ form.username.value|default:'' }}"
+                    required
+                >
 
-            {% for error in form.username.errors %}
-                <p class="field-error">{{ error }}</p>
-            {% endfor %}
-        </div>
+                {% for error in form.username.errors %}
+                    <p class="field-error">{{ error }}</p>
+                {% endfor %}
+            </div>
 
-        <div class="form-group">
-            <label>Password</label>
-            <input
-                type="password"
-                name="password"
-                id="id_password"
-                required
-            >
+            <div class="form-group">
+                <label>Password</label>
+                <input
+                    type="password"
+                    name="password"
+                    id="id_password"
+                    required
+                >
 
-            {% for error in form.password.errors %}
-                <p class="field-error">{{ error }}</p>
-            {% endfor %}
-        </div>
+                {% for error in form.password.errors %}
+                    <p class="field-error">{{ error }}</p>
+                {% endfor %}
+            </div>
 
-        <button type="submit" class="primary-btn">Sign In</button>
-    </form>
+            <button type="submit" class="primary-btn">Sign In</button>
+        </form>
 
-    <p class="switch-link">
-        Don't have an account?
-        <a href="{% url 'accounts:sign_up' %}">Sign Up</a>
-    </p>
+        <p class="switch-link">
+            Don't have an account?
+            <a href="{% url 'accounts:sign_up' %}">Sign Up</a>
+        </p>
 
+    </div>
 </div>
-
 {% endblock content %}
 
 {% block extra_js %}

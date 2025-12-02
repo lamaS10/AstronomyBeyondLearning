@@ -9,6 +9,8 @@
     box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
     position: relative;
     overflow: visible;
+    margin-top: 140px; 
+
 }
 
 .auth-card h2 {
@@ -119,3 +121,8 @@ input {
 }
 
 
+body {
+    background: url("/static/images/background-space.jpg") no-repeat center center fixed;
+    background-size: cover;
+    background-color: black; 
+}

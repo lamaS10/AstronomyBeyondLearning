@@ -1,4 +1,3 @@
-/* ==== الكارد الأساسي ==== */
 .auth-card {
     width: 450px;
     margin: 80px auto;
@@ -9,10 +8,11 @@
     color: white;
     box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
     position: relative;
-    overflow: hidden; /* مهم للأنيميشن */
+    overflow: hidden; 
+    margin-top: 140px; 
+
 }
 
-/* عنوان */
 .auth-card h2 {
     text-align: center;
     margin-bottom: 25px;
@@ -20,7 +20,6 @@
     font-weight: bold;
 }
 
-/* ==== عناصر الفورم ==== */
 .form-group {
     margin-bottom: 18px;
     display: flex;
@@ -47,7 +46,6 @@ textarea {
     min-height: 120px;
 }
 
-/* ==== زر الإرسال ==== */
 .primary-btn {
     width: 100%;
     padding: 12px;
@@ -65,7 +63,6 @@ textarea {
     background: #3867d6;
 }
 
-/* ==== border animation ==== */
 .border-anim {
     position: absolute;
     top: 0;
@@ -103,4 +100,9 @@ textarea {
     100% {
         stroke-dashoffset: 0;
     }
+}
+
+body {
+    background: url("../images/background-space.jpg") no-repeat center center fixed;
+    background-size: cover;
 }
