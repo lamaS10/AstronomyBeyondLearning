@@ -1,5 +1,5 @@
-<div class="post-card fade-in" id="post-{{ post.id }}">
-    
+<!-- _post_card.html -->
+<div class="post-card">
     <a href="{% url 'posts:post_detail' post_id=post.id %}" class="media-link">
         {% if post.media_file %}
             <div class="post-media-wrapper">
@@ -20,22 +20,18 @@
         </h3>
         
         <p class="post-meta">
-            By <a href="{% url 'posts:user_profile' username=post.author.username %}" class="post-author-link">{{ post.author.username }}</a>
-            <span class="dot-separator">·</span>
             <span class="post-date">{{ post.created_at|date:"M d, Y" }}</span>
         </p>
         
         <p class="post-body-snippet">{{ post.body|truncatewords:20 }}</p>
-        
+
         <div class="post-actions">
             <button class="action-btn like-btn {% if post.is_liked_by_user %}liked{% endif %}" data-post-id="{{ post.id }}">
                 <i class="fas fa-heart"></i> <span>{{ post.total_likes }}</span>
             </button>
-            
             <a href="{% url 'posts:post_detail' post_id=post.id %}#comments" class="action-btn comment-btn">
                 <i class="fas fa-comment"></i> <span>{{ post.comments.count }}</span>
             </a>
-            
             <a href="{% url 'posts:post_detail' post_id=post.id %}" class="action-btn read-more-link ms-auto">
                 Read More &rarr;
             </a>

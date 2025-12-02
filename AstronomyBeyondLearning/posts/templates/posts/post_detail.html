@@ -10,18 +10,15 @@
 {% block content %}
 <div class="post-detail-container">
     <div class="post-card-detail fade-in">
-        
         <div class="post-header">
             <h1 class="post-title">{{ post.title }}</h1>
             <p class="post-meta">
                 Posted by 
-                <a href="{% url 'posts:user_profile' username=post.author.username %}" class="author-link">
-                    {{ post.author.username }}
-                </a>
+                <span class="author-name">{{ post.author.username }}</span> 
                 on {{ post.created_at|date:"M d, Y, h:i A" }}
             </p>
         </div>
-        
+
         {% if post.media_file %}
             <div class="media-container">
                 {% with file_ext=post.media_file.url|lower|slice:"-4:" %}
@@ -49,7 +46,7 @@
                 <span class="bookmark-text">{% if is_bookmarked %}Saved{% else %}Save{% endif %}</span>
             </button>
 
-            {% if request.user.is_authenticated and (post.author == request.user or request.user.role in 'Staff,Moderator,Admin') %}
+            {% if request.user.is_authenticated and post.author == request.user or request.user.role in 'Staff,Moderator,Admin' %}
                 <a href="{% url 'posts:edit_post' post_id=post.id %}" class="action-btn edit-btn ms-auto">
                     <i class="fas fa-edit"></i> Edit
                 </a>
@@ -69,7 +66,7 @@
             <button id="submit-comment-btn" data-post-id="{{ post.id }}" class="btn btn-publish mt-2">Post Comment</button>
         </div>
         {% else %}
-        <p class="login-prompt">Please <a href="{% url 'accounts:login' %}">login</a> to post a comment.</p>
+        <p class="login-prompt">Please login to post a comment.</p>
         {% endif %}
         
         <div class="comments-list" id="comments-list">
@@ -79,7 +76,6 @@
                 <p class="no-comments-message">No comments yet. Be the first!</p>
             {% endfor %}
         </div>
-        </div>
-
+    </div>
 </div>
 {% endblock %}

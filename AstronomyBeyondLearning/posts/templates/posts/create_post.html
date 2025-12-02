@@ -1,50 +1,27 @@
-{% extends "main/base.html" %}
-{% load static %}
-{% load i18n %}
+{% extends 'main/base.html' %}
+{% load static %}  <-- 🚨 هذا هو السطر الناقص الذي يسبب المشكلة
 
-{% block title %}ABL | Create New Post{% endblock %}
-{% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/create_post.css' %}">
+{% block extra_css %} 
+    <link rel="stylesheet" href="{% static 'css/create_post.css' %}">
+{% endblock %}
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
-{% endblock extra_css %}
 {% block content %}
-    <div class="create-post-container">
-        <h2 class="form-title">Create New Post</h2>
-        
-        <form id="newPostForm" method="POST" action="{% url 'posts:create_post' %}" enctype="multipart/form-data">
-            {% csrf_token %}
-            
-            <div class="form-group">
-                <label for="postTitle">Post Title</label>
-                <input type="text" id="postTitle" name="title" placeholder="Write the title of your cosmic journey here..." required>
-            </div>
-            
-            <div class="form-group">
-                <label for="postBody">Post Body</label>
-                <textarea id="postBody" name="body" rows="6" placeholder="What celestial wonders are on your mind today?" required></textarea>
-            </div>
-            
-            <div class="form-group">
-                <label>Image/Video Upload</label>
-                <div id="mediaDropZone" class="drop-zone">
-                    <i class="fas fa-cloud-upload-alt"></i>
-                    <p>Drag & drop your media here, or <span class="browse-link">Browse</span></p>
-                    <input type="file" id="mediaFile" name="media_file" accept="image/*,video/*" hidden> 
-                </div>
-                <div id="mediaPreview"></div> 
-            </div>
-            
-            <div class="button-group">
-                <button type="submit" class="btn btn-publish">Publish Post</button>
-                <button type="button" class="btn btn-cancel" onclick="window.history.back();">Cancel</button>
-            </div>
-        </form>
-    </div>
-    
-{% endblock content %}
+<div class="form-wrapper">
+    <h2 class="form-title">Create New Post</h2>
 
-{% block extra_js %}
-    <script src="{% static 'js/create_post.js' %}"></script>
-{% endblock extra_js %}
+    <form method="POST" enctype="multipart/form-data" class="add-form">
+        {% csrf_token %}
+
+        <label for="title">Title</label>
+        <input type="text" name="title" id="title" required minlength="3">
+
+        <label for="content">Content</label>
+        <textarea name="content" id="content" rows="4" required></textarea>
+
+        <label for="media_file">Image/Video</label>
+        <input type="file" name="media_file" id="media_file" accept="image/*,video/*">
+
+        <button type="submit" class="submit-btn">Publish Post</button>
+    </form>
+</div>
+{% endblock %}

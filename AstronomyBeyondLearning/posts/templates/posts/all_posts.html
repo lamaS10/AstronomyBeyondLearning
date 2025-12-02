@@ -10,19 +10,57 @@
 
 {% block content %}
 <div class="posts-feed-container">
-    
     <div class="feed-header mb-5">
-        <h1 class="display-4 fw-bold mb-2 section-title">Cosmic Chronicles</h1>
-        <p class="lead text-muted">Explore the latest celestial discoveries shared by our community.</p>
-        
+        <div class="page-description">
+            <h1>Cosmic Chronicles</h1>
+            <p>Explore the latest celestial discoveries shared by our community.</p>
+        </div>
+
         <a href="{% url 'posts:create_post' %}" class="btn btn-publish create-new-btn mt-4">
             <i class="fas fa-plus-circle"></i> Create New Post
         </a>
     </div>
-    
-    <div class="row post-grid">
+
+    <div class="post-grid">
         {% for post in posts %}
-            {% include 'posts/_post_card.html' with post=post %} 
+            <div class="post-card">
+                <a href="{% url 'posts:post_detail' post_id=post.id %}" class="media-link">
+                    {% if post.media_file %}
+                        <div class="post-media-wrapper">
+                            {% with file_ext=post.media_file.url|lower|slice:"-4:" %}
+                                {% if file_ext == ".mp4" or file_ext == ".mov" %}
+                                    <video controls src="{{ post.media_file.url }}" class="media-preview"></video>
+                                {% else %}
+                                    <img src="{{ post.media_file.url }}" alt="{{ post.title }}" class="media-preview">
+                                {% endif %}
+                            {% endwith %}
+                        </div>
+                    {% endif %}
+                </a>
+
+                <div class="post-content">
+                    <h3 class="post-title">
+                        <a href="{% url 'posts:post_detail' post_id=post.id %}">{{ post.title|truncatechars:45 }}</a>
+                    </h3>
+
+                    <div class="post-meta">
+                        <span class="post-date">{{ post.created_at|date:"M d, Y" }}</span>
+                        <div class="post-actions">
+                            <button class="action-btn like-btn {% if post.is_liked_by_user %}liked{% endif %}" data-post-id="{{ post.id }}">
+                                <i class="fas fa-heart"></i> <span>{{ post.total_likes }}</span>
+                            </button>
+                            <a href="{% url 'posts:post_detail' post_id=post.id %}#comments" class="action-btn comment-btn">
+                                <i class="fas fa-comment"></i> <span>{{ post.comments.count }}</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <p class="post-body-snippet">{{ post.body|truncatewords:20 }}</p>
+                    <a href="{% url 'posts:post_detail' post_id=post.id %}" class="read-more-link ms-auto">
+                        Read More &rarr;
+                    </a>
+                </div>
+            </div>
         {% empty %}
             <div class="col-12">
                 <p class="text-center p-5 text-muted no-posts-message">

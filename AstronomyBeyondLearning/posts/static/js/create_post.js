@@ -71,17 +71,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    const form = document.getElementById('newPostForm');
-    form.addEventListener('submit', (e) => {
-        e.preventDefault(); 
-        const formData = new FormData(form);
-
-        console.log("Post Title:", formData.get('title'));
-        console.log("Post Body:", formData.get('body'));
-        console.log("Media Files Count:", formData.getAll('media').length);
-
-        alert("Post submitted successfully! (This is a frontend alert only)");
-        
-    });
+   
 
 });

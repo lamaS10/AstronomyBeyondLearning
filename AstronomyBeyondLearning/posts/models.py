@@ -13,7 +13,7 @@ class Post(models.Model):
         help_text='The user who created the post.'
     )
     title = models.CharField(max_length=255)
-    body = models.TextField()
+    content = models.TextField()
     
     media_file = models.FileField(
         upload_to='post_media/', 
@@ -100,13 +100,13 @@ class PostBookmark(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, 
         on_delete=models.CASCADE, 
-        related_name='bookmarks',
+        related_name='bookmarks_post',
         help_text='The user who bookmarked the post.'
     )
     post = models.ForeignKey(
         Post, 
         on_delete=models.CASCADE, 
-        related_name='bookmarks',
+        related_name='bookmarks_post',
         help_text='The post that was bookmarked.'
     )
     created_at = models.DateTimeField(auto_now_add=True)

@@ -7,6 +7,7 @@ from django.views import View
 from django.contrib.auth.decorators import login_required        
 from django.contrib.auth import get_user_model 
 from django.contrib.auth.models import User 
+from django.contrib import messages
 from django.http import Http404, HttpResponseForbidden
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -41,43 +42,41 @@ def like_post(request, post_id):
     
     #انشاء بوست
 def create_post_view(request):
-  
-    if request.method == 'POST':
-        title = request.POST.get('title')
-        body = request.POST.get('body')
-        media_file = request.FILES.get('media_file') 
+    # التأكد من أن المستخدم هو المسؤول
+    if not request.user.is_authenticated:
+        messages.warning(request, "You must be logged in to create a post.")
+        return redirect("accounts:login")  # التوجيه إلى صفحة الدخول إذا لم يكن المستخدم مسجل دخول
+
+    if request.method == "POST":
+        title = request.POST.get("title")
+        content = request.POST.get("content")
+        media_file = request.FILES.get("media_file")  # رفع صورة أو فيديو
         
-        if not title or not body:
-            return render(request, 'posts/create_post.html', {
-                'error': 'Title and body fields are required.',
-                'title': title, 
-                'body': body
-            })
-            
+        # التحقق من البيانات
+        if not title or not content:
+            messages.warning(request, "Title and content are required.")
+            return redirect("posts:create_post")
+
+        # إنشاء المنشور
         try:
             new_post = Post.objects.create(
                 author=request.user,
                 title=title,
-                body=body,
-                media_file=media_file 
+                content=content,
+                media_file=media_file
             )
-            
-            return redirect('posts:post_detail', post_id=new_post.id) 
+            messages.success(request, "Post created successfully!")
+            return redirect('posts:post_detail', post_id=new_post.id)
 
         except Exception as e:
-            print(f"Error saving post: {e}")
-            return render(request, 'posts/create_post.html', {
-                'error': 'An unexpected error occurred. Please try again.',
-                'title': title, 
-                'body': body
-            })
-    
-    return render(request, 'posts/create_post.html')
+            messages.error(request, f"Something went wrong: {e}")
+            return redirect("posts:create_post")
 
+    return render(request, "posts/create_post.html")
 
     #تعديل البوست
 def edit_post(request, post_id):
-  
+
     if request.method != 'POST':
         return HttpResponseBadRequest("Invalid request method. Must be POST.")
 
@@ -86,21 +85,25 @@ def edit_post(request, post_id):
     is_staff_or_above = user.role in ['Staff', 'Moderator', 'Admin']
     
     if post.author == user or is_staff_or_above:
-        
+        import json
         try:
-            import json
             data = json.loads(request.body)
-            
+
             post.title = data.get('title', post.title)
-            post.body = data.get('body', post.body)
+            post.content = data.get('body', post.content)
             post.save()
-            return JsonResponse({'success': True, 'message': 'Post updated successfully.', 'title': post.title, 'body': post.body}, status=200)
+            
+            return JsonResponse({
+                'success': True,
+                'message': 'Post updated successfully.',
+                'title': post.title,
+                'content': post.content
+            }, status=200)
 
         except json.JSONDecodeError:
             return HttpResponseBadRequest("Invalid JSON format.")
     
-    else:
-        return HttpResponseForbidden("You do not have permission to edit this post.")
+    return HttpResponseForbidden("You do not have permission to edit this post.")
     
     
       # حذف بوست
@@ -161,7 +164,6 @@ def all_posts_view(request):
         return render(request, 'posts/all_posts.html', context)
 
     #هنا اضافة كومنت 
-
 def add_comment(request, post_id):
     
     if request.method == 'POST':

@@ -1,125 +1,96 @@
 :root {
-    --dark-bg: #1a1a2e;
-    --card-bg: #2a2a44;
-    --primary-color: #00bcd4; 
-    --text-color: #ffffff;
-    --input-border: #4a4a6e;
-    --error-color: #ff4c4c;
+--dark-bg: #1a1a2e; 
+--card-bg: #2a2a44; 
+--primary-color: #00bcd4; 
+--text-color: #ffffff; 
+--input-border: #4a4a6e; 
+--error-color: #ff4c4c;
 }
 
 body {
-    background-color: var(--dark-bg);
-    color: var(--text-color);
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 20px;
+background-color: var(--dark-bg);
+color: var(--text-color);
+font-family: 'Arial', sans-serif;
+margin: 0;
 }
 
-.create-post-container {
-    max-width: 600px;
-    margin: 40px auto;
-    background-color: var(--card-bg);
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 
-        0 0 20px rgba(0, 188, 212, 0.4),
-        0 4px 20px rgba(0, 0, 0, 0.5); 
+.form-wrapper { 
+max-width: 550px; /* عرض مناسب للفورم */
+margin: 130px auto 40px auto;
+background-color: var(--card-bg);
+padding: 30px;
+border-radius: 12px;
+box-shadow: 0 0 20px rgba(0, 188, 212, 0.4), 0 4px 20px rgba(0, 0, 0, 0.5); 
 }
-#postTitle, #postBody {
-        font-family: 'Arial', sans-serif; /* Change 'Arial' to your preferred font */
-    }
+
+/* 2. عنوان الفورم */
 .form-title {
-    text-align: center;
-    color: var(--primary-color);
-    margin-bottom: 30px;
+text-align: center;
+color: var(--primary-color);
+margin-bottom: 30px;
+font-size: 2em;
 }
 
-/* تصميم حقول الإدخال والنص */
-.form-group {
-    margin-bottom: 20px;
+/* 3. تنسيق الفورم نفسه (لتحديد المسافات بين الحقول) */
+.add-form {
+display: flex;
+flex-direction: column;
+gap: 15px; 
 }
 
 label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
+display: block;
+margin-bottom: 0px; 
+font-weight: bold;
+color: var(--text-color);
+padding-top: 5px; 
 }
 
+/* 4. تصميم حقول الإدخال والنص (Title and Content) */
 input[type="text"],
 textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid var(--input-border);
-    border-radius: 6px;
-    background-color: var(--dark-bg);
-    color: var(--text-color);
-    box-sizing: border-box; 
-    transition: border-color 0.3s;
+width: 100%;
+padding: 12px;
+border: 1px solid var(--input-border);
+border-radius: 6px;
+background-color: var(--dark-bg);
+color: var(--text-color);
+box-sizing: border-box; 
+transition: border-color 0.3s, box-shadow 0.3s;
+resize: vertical;
 }
 
 input[type="text"]:focus,
 textarea:focus {
-    border-color: var(--primary-color);
-    outline: none;
+border-color: var(--primary-color);
+box-shadow: 0 0 8px rgba(0, 188, 212, 0.5); 
+outline: none;
 }
 
-/* تصميم منطقة سحب وإفلات الوسائط */
-.drop-zone {
-    border: 2px dashed var(--input-border);
-    border-radius: 8px;
-    padding: 40px;
-    text-align: center;
-    cursor: pointer;
-    transition: background-color 0.3s, border-color 0.3s;
+/* 5. تنسيق حقل رفع الملفات (Image/Video) */
+input[type="file"] {
+padding: 10px;
+border: 1px dashed var(--input-border);
+border-radius: 6px;
+background-color: #33334a;
+cursor: pointer;
 }
 
-.drop-zone:hover {
-    background-color: #3a3a5a;
-    border-color: var(--primary-color);
+/* 6. تصميم زر النشر (Publish Post) */
+.submit-btn { 
+background-color: var(--primary-color);
+color: var(--dark-bg);
+padding: 12px 25px;
+border: none;
+border-radius: 6px;
+cursor: pointer;
+font-size: 1.1em;
+font-weight: bold;
+transition: transform 0.2s, background-color 0.3s;
+margin-top: 20px; 
 }
 
-.drop-zone i { /* أيقونة السحابة */
-    font-size: 3em;
-    color: var(--primary-color);
-    margin-bottom: 10px;
-}
-
-.browse-link {
-    color: var(--primary-color);
-    text-decoration: underline;
-    font-weight: bold;
-}
-
-/* تصميم الأزرار */
-.button-group {
-    display: flex;
-    justify-content: flex-end;
-    gap: 15px;
-    margin-top: 30px;
-}
-
-.btn {
-    padding: 10px 25px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-    transition: transform 0.2s, opacity 0.2s;
-}
-
-.btn-publish {
-    background-color: var(--primary-color);
-    color: var(--dark-bg);
-}
-
-.btn-publish:hover {
-    opacity: 0.9;
-    transform: translateY(-1px);
-}
-
-.btn-cancel {
-    background-color: transparent;
-    border: 1px solid var(--input-border);
-    color: var(--text-color);
+.submit-btn:hover {
+background-color: #00a0b5;
+transform: translateY(-2px); 
 }
