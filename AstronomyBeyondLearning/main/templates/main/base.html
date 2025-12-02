@@ -25,15 +25,20 @@
             <a href="{% url 'main:home' %}" class="logo-glow">ABL</a>
         </div>
 
+        <div class="nav-center">
+            <a href="#">All Planets</a>
+            <a href="{% url 'posts:all_posts' %}">All Posts</a>
+            <a href="#">Explore</a>
+            <a href="#">About</a>
+        </div>
 
         <div class="nav-right">
-            <a href="#" class="nav-btn">About</a>
-            <a href="#" class="nav-btn">Log In</a>
-            <a href="#" class="nav-btn">Sign Up</a>
+            <a href="{% url 'accounts:sign_in' %}" class="nav-btn">Log In</a>
+            <a href="{% url 'accounts:sign_up' %}" class="nav-btn">Sign Up</a>
         </div>
 
     </nav>
-   
+
     <main>
         {% block content %}
         {% endblock content %}
