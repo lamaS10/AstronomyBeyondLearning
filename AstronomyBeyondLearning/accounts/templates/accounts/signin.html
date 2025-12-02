@@ -17,18 +17,11 @@
 
     <h2>Sign In</h2>
 
-    {% if messages %}
-    <div class="messages">
-        {% for msg in messages %}
-            <p class="msg {{ msg.tags }}">{{ msg }}</p>
-        {% endfor %}
-    </div>
-    {% endif %}
+
 
     <form method="POST">
         {% csrf_token %}
 
-        {# --- NON FIELD ERRORS (مثل "invalid username/pass") --- #}
         {% if form.non_field_errors %}
             {% for error in form.non_field_errors %}
                 <p class="msg error">{{ error }}</p>

@@ -127,3 +127,17 @@
     transform: translateY(-1px); 
 }
 
+.field-error {
+    color: #ff6b6b;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.msg.error {
+    background: #e74c3c22;
+    color: #ff6b6b;
+    padding: 10px;
+    border-radius: 6px;
+    text-align: center;
+    margin-bottom: 10px;
+}
