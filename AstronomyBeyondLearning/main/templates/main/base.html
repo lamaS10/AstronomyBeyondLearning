@@ -9,8 +9,10 @@
     <title>
     {% block title %} ABL {% endblock title %}
     </title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
 
     {% block extra_css %}
     {% endblock extra_css %}
@@ -18,26 +20,57 @@
 </head>
 
 <body>
+    <nav class="glass-navbar">
 
-    <nav class="top-navbar">
+        <a href="{% url 'main:home' %}" class="glass-logo">ABL</a>
 
-        <div class="logo">
-            <a href="{% url 'main:home' %}" class="logo-glow">ABL</a>
+        <div class="glass-center">
+            <a href="#" class="{% if 'about' in request.path %}active-link{% endif %}">About</a>
+            <a href="#" class="{% if request.path == '/planets/' %}active-link{% endif %}">All Planets</a>
+            <a href="{% url 'posts:all_posts' %}" class="{% if 'posts' in request.path %}active-link{% endif %}">All Posts</a>
+            <a href="#" class="{% if 'add_posts' in request.path %}active-link{% endif %}">Add posts</a>
+            <a href="#" class="{% if 'add_planets' in request.path %}active-link{% endif %}">Add planets</a>
+            
         </div>
 
-        <div class="nav-center">
-            <a href="#">All Planets</a>
-            <a href="{% url 'posts:all_posts' %}">All Posts</a>
-            <a href="#">Explore</a>
-            <a href="#">About</a>
-        </div>
+        <div class="glass-right">
 
-        <div class="nav-right">
-            <a href="{% url 'accounts:sign_in' %}" class="nav-btn">Log In</a>
-            <a href="{% url 'accounts:sign_up' %}" class="nav-btn">Sign Up</a>
+            {% if user.is_authenticated %}
+
+                <a href="{% url 'accounts:user_profile_view' user.username %}" 
+                class="welcome-text {% if user.username in request.path %}welcome-active{% endif %}">
+                    <i class="material-icons">person</i>
+                    Welcome, {{ user.first_name|default:user.username }}
+                </a>
+
+
+                <a href="{% url 'accounts:log_out' %}" class="glass-btn">
+                    <i class="material-icons">logout</i>
+                </a>
+
+            {% else %}
+
+                <a href="{% url 'accounts:sign_in' %}" class="glass-btn">
+                    <i class="material-icons">login</i>
+                </a>
+
+                <a href="{% url 'accounts:sign_up' %}" class="glass-btn">
+                    <i class="material-icons">person_add</i>
+                </a>
+
+            {% endif %}
         </div>
 
     </nav>
+
+
+    {% if messages %}
+    <div class="messages">
+        {% for msg in messages %}
+            <p class="msg {{ msg.tags }}">{{ msg }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
 
     <main>
         {% block content %}
@@ -47,22 +80,9 @@
   
     <footer class="footer">
         <div class="footer-wrapper">
-
             <div class="footer-col site-name">
                 <h4 class="footer-glow">ABL</h4>
-                <div class="footer-icons">
-                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                    <a href="#"><i class="fa-brands fa-linkedin"></i></a>
-                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
-                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                </div>
-            </div>
-
-            <div class="footer-col">
-                <h4>Explore</h4>
-                <a href="#">Planets</a>
-                <a href="#">Quiz</a>
-                <a href="#">Secrets of the Universe</a>
+                <p class="footer-subtitle">Astronomy Beyond Learning — Explore the universe.</p>
             </div>
 
             <div class="footer-col">
@@ -71,17 +91,12 @@
                 <a href="#">FAQ</a>
                 <a href="#">Terms</a>
             </div>
-
-            <div class="footer-col">
-                <h4>More</h4>
-                <a href="#">Privacy Policy</a>
-                <a href="#">Support</a>
-            </div>
-
         </div>
 
         <p class="footer-copy">© 2025 ABL — Astronomy Beyond Learning</p>
     </footer>
+
+
 
     {% block extra_js %}
     {% endblock extra_js %}
