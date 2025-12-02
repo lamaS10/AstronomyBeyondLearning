@@ -158,7 +158,7 @@ def all_posts_view(request):
         context = {
         'posts': posts
     }
-        return render(request, 'all_posts.html', context)
+        return render(request, 'posts/all_posts.html', context)
 
     #هنا اضافة كومنت 
 
