@@ -5,10 +5,6 @@
     <div class="planet-info">
         <h3 class="planet-name">{{ planet.name }}</h3>
 
-        <p class="planet-desc">
-            {{ planet.description|truncatewords:15 }}
-        </p>
-
         <a href="{% url 'planets:planet_detail' planet.id %}" class="planet-btn">
             View Details
         </a>

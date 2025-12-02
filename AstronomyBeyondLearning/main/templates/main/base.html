@@ -26,11 +26,11 @@
 
         <div class="glass-center">
             <a href="#" class="{% if 'about' in request.path %}active-link{% endif %}">About</a>
-            <a href="#" class="{% if request.path == '/planets/' %}active-link{% endif %}">All Planets</a>
+            <a href="{% url 'planets:planets_list' %}"  class="{% if request.path == '/planets/' %}active-link{% endif %}">All Planets</a>
             <a href="{% url 'posts:all_posts' %}" class="{% if 'posts' in request.path %}active-link{% endif %}">All Posts</a>
             <a href="#" class="{% if 'add_posts' in request.path %}active-link{% endif %}">Add posts</a>
-            <a href="#" class="{% if 'add_planets' in request.path %}active-link{% endif %}">Add planets</a>
-            
+            <a href="{% url 'planets:planets_add_view' %}" class="{% if 'add_planets' in request.path %}active-link{% endif %}">Add planets</a>
+           
         </div>
 
         <div class="glass-right">

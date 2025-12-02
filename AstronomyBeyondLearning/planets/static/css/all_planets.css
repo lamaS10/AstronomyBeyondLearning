@@ -1,20 +1,22 @@
 .planets-container {
     width: 90%;
     max-width: 1200px;
-    margin: 80px auto;
+    margin: 100px auto 60px;
 }
 
 .page-title {
     text-align: center;
     color: white;
-    font-size: 32px;
+    font-size: 34px;
     font-weight: 800;
-    margin-bottom: 40px;
+    margin-bottom: 45px;
+    letter-spacing: 1px;
 }
 
 .planets-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 30px;
-    justify-items: center;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 35px;
+    justify-items: stretch;
+    align-items: stretch;
 }
