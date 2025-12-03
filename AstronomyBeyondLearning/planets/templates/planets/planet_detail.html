@@ -9,32 +9,112 @@
 
 {% block content %}
 
-<div class="planet-detail-container">
+{% if page_obj.number == 1 %}
+<!--OVERVIEW -->
 
-    <div class="planet-detail-card">
+<div class="planet-hero-card">
 
-        {% if planet.image %}
-        <img src="{{ planet.image.url }}" class="planet-detail-img">
-        {% endif %}
+    <div class="planet-left">
+        <h1 class="planet-name">{{ planet.name }}</h1>
 
-        <h2 class="planet-name">{{ planet.name }}</h2>
+        <p class="planet-category">{{ planet.get_category_display }}</p>
 
         <p class="planet-desc">{{ planet.description }}</p>
 
-        <div class="planet-info">
-            {% if planet.category %}
-            <p><strong>Category:</strong> {{ planet.category.name }}</p>
-            {% endif %}
-
-            {% if planet.created_at %}
-            <p><strong>Created:</strong> {{ planet.created_at|date:"M d, Y" }}</p>
-            {% endif %}
+        <div class="btns-wrapper">
+            <a href="{% url 'planets:planets_list' %}" class="detail-btn">← Back</a>
+            <a href="?page=2" class="detail-btn">Next →</a>
+            
         </div>
 
-        <a href="{% url 'planets:planets_list' %}" class="back-btn">← Back to all planets</a>
+
+    </div>
+
+    <div class="planet-right">
+        {% if planet.image %}
+        <img src="{{ planet.image.url }}" class="planet-circle-img">
+        {% endif %}
+    </div>
+
+</div>
+
+{% else %}
+<!--DETAILS -->
+
+<h2 class="facts-title">Detailed Planet Facts</h2>
+
+<div class="facts-layout">
+
+    <div class="facts-left">
+
+        {% if planet.distance_from_sun %}
+        <div class="fact-item">
+            <h4>Distance from Sun</h4>
+            <p>{{ planet.distance_from_sun }}</p>
+        </div>
+        {% endif %}
+
+        {% if planet.temperature %}
+        <div class="fact-item">
+            <h4>Temperature</h4>
+            <p>{{ planet.temperature }}</p>
+        </div>
+        {% endif %}
+
+        {% if planet.day_length %}
+        <div class="fact-item">
+            <h4>Day Length</h4>
+            <p>{{ planet.day_length }}</p>
+        </div>
+        {% endif %}
+
+    </div>
+
+    <div class="planet-rotate">
+        <div class="planet-rotate-img">
+            <img src="{{ planet.image.url }}" alt="{{ planet.name }}">
+        </div>
+    </div>
+
+    <div class="facts-right">
+
+        {% if planet.gravity %}
+        <div class="fact-item">
+            <h4>Gravity</h4>
+            <p>{{ planet.gravity }}</p>
+        </div>
+        {% endif %}
+
+        {% if planet.radius %}
+        <div class="fact-item">
+            <h4>Radius</h4>
+            <p>{{ planet.radius }}</p>
+        </div>
+        {% endif %}
+
+        {% if planet.moons_count %}
+        <div class="fact-item">
+            <h4>Moons Count</h4>
+            <p>{{ planet.moons_count }}</p>
+        </div>
+        {% endif %}
+
+        {% if planet.atmosphere %}
+        <div class="fact-item">
+            <h4>Atmosphere</h4>
+            <p>{{ planet.atmosphere }}</p>
+        </div>
+        {% endif %}
 
     </div>
 
 </div>
+
+<div class="btns-wrapper">
+    <a href="?page=1" class="detail-btn">← Back</a>
+</div>
+
+
+{% endif %}
 
 {% endblock content %}
