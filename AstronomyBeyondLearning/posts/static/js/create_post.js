@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    /* ===== Border Animation ===== */
     const svg = document.querySelector(".border-anim");
     if (svg) {
         const rects = svg.querySelectorAll("rect");
@@ -17,7 +16,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    /* ===== Drop Zone Logic ===== */
     const dropZone = document.getElementById("mediaDropZone");
     const fileInput = document.getElementById("mediaFile");
     const preview = document.getElementById("mediaPreview");

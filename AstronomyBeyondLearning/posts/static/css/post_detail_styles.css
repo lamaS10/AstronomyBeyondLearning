@@ -1,6 +1,6 @@
 .post-detail-container {
     max-width: 550px; 
-    margin: 40px auto; 
+    margin: 100px auto; 
     padding: 20px;
     background-color: #2c2c2c; 
     border-radius: 12px;
@@ -130,4 +130,55 @@
     border: 1px dashed #444;
     border-radius: 6px;
 }
+/* زر تعديل بدون نص */
+.edit-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 14px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    position: relative; /* مهم للتولتيب */
+}
+
+/* أيقونة */
+.edit-btn i {
+    font-size: 22px;
+    color: #cfe0ff;
+    transition: 0.3s ease;
+}
+
+/* هOVER */
+.edit-btn:hover {
+    background: rgba(255,255,255,0.15);
+    transform: translateY(-2px);
+}
+
+/* ===== Tooltip ===== */
+.edit-btn::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: -45px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.75);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    color: #fff;
+    transition: 0.3s ease;
+}
+
+/* ظهور التولتيب */
+.edit-btn:hover::after {
+    opacity: 1;
+    bottom: -38px;
+}
+
+
 

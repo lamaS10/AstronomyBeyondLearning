@@ -32,27 +32,64 @@
         {% endif %}
 
         <div class="post-body">
-            <p>{{ post.body|linebreaksbr }}</p>
+            <p>{{ post.content|linebreaksbr }}</p>
         </div>
 
         <div class="detail-actions-bar">
-            <button class="action-btn like-btn {% if is_liked %}liked{% endif %}" data-post-id="{{ post.id }}">
-                <i class="fas fa-heart"></i> 
-                <span class="like-count">{{ post.total_likes }}</span> Likes
-            </button>
 
-            <button class="action-btn bookmark-btn {% if is_bookmarked %}bookmarked{% endif %}" data-post-id="{{ post.id }}">
-                <i class="fas fa-bookmark"></i> 
-                <span class="bookmark-text">{% if is_bookmarked %}Saved{% else %}Save{% endif %}</span>
-            </button>
+            
+            {# 1. زر الإعجاب (Like) #}
+           {% if request.user.is_authenticated %}
+    <form method="POST" action="{% url 'posts:like_post' post_id=post.id %}" style="display: inline;">
+        {% csrf_token %}
+        <button type="submit" class="action-btn like-btn {% if is_liked %}liked{% endif %}">
+            <!-- إذا كان المنشور معجبًا به، نعرض أيقونة "favorite" -->
+            {% if is_liked %}
+                <i class="material-icons">favorite</i>
+            {% else %}
+                <i class="material-icons">favorite_border</i>
+            {% endif %}
+        </button>
+    </form>
+{% else %}
+    <button class="action-btn like-btn disabled">
+        <i class="material-icons">favorite_border</i>
+    </button>
+{% endif %}
 
+
+            {# 2. زر الحفظ (Bookmark) #}
+          {% if request.user.is_authenticated %}
+    <form method="POST" action="{% url 'posts:post_bookmark' post_id=post.id %}" style="display: inline;">
+        {% csrf_token %}
+        <button type="submit" class="action-btn bookmark-btn {% if is_bookmarked %}bookmarked{% endif %}">
+            <!-- إذا كان المنشور محفوظًا، نعرض أيقونة "bookmarked" -->
+            {% if is_bookmarked %}
+                <i class="material-icons">bookmark</i> 
+            {% else %}
+                <i class="material-icons">bookmark_border</i> 
+            {% endif %}
+        </button>
+    </form>
+{% endif %}
+
+
+
+            {# 3. أزرار التعديل والحذف (فقط للمؤلف/الإدارة) #}
             {% if request.user.is_authenticated and post.author == request.user or request.user.role in 'Staff,Moderator,Admin' %}
-                <a href="{% url 'posts:edit_post' post_id=post.id %}" class="action-btn edit-btn ms-auto">
-                    <i class="fas fa-edit"></i> Edit
+                {# رابط التعديل #}
+        
+                <a class="edit-btn" href="{% url 'posts:edit_post' post_id=post.id  %}" data-tooltip="Edit Post">
+                    <i class="material-icons">edit_note</i>
                 </a>
-                <button class="action-btn delete-btn" data-post-id="{{ post.id }}">
-                    <i class="fas fa-trash"></i> Delete
-                </button>
+                 {# نموذج الحذف #}
+                <form method="POST" action="{% url 'posts:delete_post' post_id=post.id %}" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="action-btn delete-btn" 
+                            onclick="return confirm('Are you sure you want to delete this post?');">
+                        <i class="fas fa-trash"></i> Delete
+                    </button>
+                </form>
             {% endif %}
         </div>
     </div>
@@ -62,18 +99,25 @@
         
         {% if request.user.is_authenticated %}
         <div class="comment-form-box">
-            <textarea id="comment-input" placeholder="Add your comment..." class="form-textarea"></textarea>
-            <button id="submit-comment-btn" data-post-id="{{ post.id }}" class="btn btn-publish mt-2">Post Comment</button>
+            {# 4. نموذج إضافة التعليق #}
+            <form method="POST" action="{% url 'posts:add_comment' post_id=post.id %}">
+                {% csrf_token %}
+                <textarea name="comment_body" id="comment-input" placeholder="Add your comment..." class="form-textarea" required></textarea>
+                <button type="submit" class="btn btn-publish mt-2">Post Comment</button>
+            </form>
         </div>
         {% else %}
-        <p class="login-prompt">Please login to post a comment.</p>
+        <p class="login-prompt">Please <a href="{% url 'accounts:login' %}">login</a> to post a comment.</p>
         {% endif %}
         
         <div class="comments-list" id="comments-list">
             {% for comment in comments %}
-                {% include 'posts/_comment_item.html' with comment=comment %}
+            <div class="comment-box">
+                <p><strong>{{ comment.user.username }}</strong> - {{ comment.created_at|date:"M d, Y" }}</p>
+                <p>{{ comment.body }}</p>
+            </div>
             {% empty %}
-                <p class="no-comments-message">No comments yet. Be the first!</p>
+            <p class="no-comments-message">No comments yet. Be the first!</p>
             {% endfor %}
         </div>
     </div>
