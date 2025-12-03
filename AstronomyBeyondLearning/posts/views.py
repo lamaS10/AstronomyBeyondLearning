@@ -2,9 +2,9 @@ from django.shortcuts import render
 # Create your views here.
 from django.shortcuts import get_object_or_404, redirect
 from django.http import JsonResponse, HttpResponseBadRequest
-from .models import Post, PostLike, PostComment, PostBookmark
+from .models import Post, PostLike, PostComment, PostBookmark, PostComment
 from django.views import View
-from django.contrib.auth.decorators import login_required        
+from django import forms
 from django.contrib.auth import get_user_model 
 from django.contrib.auth.models import User 
 from django.contrib import messages
@@ -12,8 +12,7 @@ from django.http import Http404, HttpResponseForbidden
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-
-#هنا اللايك 
+# Like post
 def like_post(request, post_id):
     if request.method == 'POST':
         post = get_object_or_404(Post, id=post_id)
@@ -22,17 +21,17 @@ def like_post(request, post_id):
         try:
             like = PostLike.objects.get(user=user, post=post)
             like.delete()
-            messages.info(request, "تم إلغاء الإعجاب بالمنشور بنجاح.")
+            messages.info(request, "Post unliked successfully.")
             
         except PostLike.DoesNotExist:
             PostLike.objects.create(user=user, post=post)
-            messages.success(request, "تم الإعجاب بالمنشور بنجاح!")
+            messages.success(request, "Post liked successfully!")
 
         return redirect('posts:post_detail', post_id=post.id)
         
     return HttpResponseBadRequest("Invalid request method. Must be POST.")
     
-    #انشاء بوست
+    # Create post
 def create_post_view(request):
     if not request.user.is_authenticated:
         messages.warning(request, "You must be logged in to create a post.")
@@ -64,59 +63,62 @@ def create_post_view(request):
     return render(request, "posts/create_post.html")
 
 
-    #تعديل البوست
+class PostEditForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ['title', 'content', 'media_file']
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-input-styled'}),
+            'content': forms.Textarea(attrs={'class': 'form-input-styled'}),
+            'media_file': forms.FileInput(), 
+        }
+
+# Edit post
 def edit_post(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     user = request.user
-    is_staff_or_above = user.role in ['Staff', 'Moderator', 'Admin']
     
-    if not (post.author == user or is_staff_or_above):
-        messages.error(request, "ليس لديك صلاحية لتعديل هذا المنشور.")
+    if post.author != user and not user.is_superuser and not user.is_staff:
+        messages.error(request, "You do not have permission to edit this post.")
         return redirect('posts:post_detail', post_id=post.id)
-    
+
     if request.method == 'POST':
-        new_title = request.POST.get('title')
-        new_content = request.POST.get('content')
+        form = PostEditForm(request.POST, request.FILES, instance=post)
         
-        if new_title and new_content:
-            post.title = new_title
-            post.content = new_content
-            post.save()
-            messages.success(request, "تم تحديث المنشور بنجاح.")
+        if form.is_valid():
+            form.save() 
+            messages.success(request, "Post edited successfully.")
             return redirect('posts:post_detail', post_id=post.id)
-        else:
-            messages.warning(request, "العنوان والمحتوى لا يمكن أن يكونا فارغين.")
-            return redirect('posts:edit_post_template', post_id=post.id) 
+    else:
+        form = PostEditForm(instance=post)
         
-            return render(request, 'posts/edit_post.html', {'post': post})
+    return render(request, 'posts/edit_post.html', {'form': form, 'post': post})
     
-    
-      # حذف بوست
+    # Delete post
 def delete_post(request, post_id): 
     if request.method == 'POST':
         try:
             post = Post.objects.get(id=post_id)
         except Post.DoesNotExist:
-            messages.error(request, "لم يتم العثور على المنشور.")
-            raise Http404("Post not found.")
+            messages.error(request, "Sorry, the requested post was not found.")
+            return redirect('posts:all_posts') 
 
         user = request.user
-        is_staff_or_above = user.role in ['Staff', 'Moderator', 'Admin']
+        is_staff_or_above = user.is_superuser or user.is_staff 
         
         if post.author == user or is_staff_or_above:
             post.delete() 
-            messages.success(request, "تم حذف المنشور بنجاح.")
+            messages.success(request, "Post deleted successfully.")
             return redirect('posts:all_posts') 
 
         else:
-            messages.error(request, "ليس لديك صلاحية لحذف هذا المنشور.")
+            messages.error(request, "You do not have permission to delete this post.")
             return redirect('posts:post_detail', post_id=post.id)
             
     return HttpResponseBadRequest("Invalid request method. Must be POST.")
     
     
-    
-    #تفاصيل البوست
+    # Post details
 def post_detail_view(request, post_id):
    
     post = get_object_or_404(
@@ -142,7 +144,7 @@ def post_detail_view(request, post_id):
     return render(request, 'posts/post_detail.html', context)
    
    
-    #جميع البوستات
+    # All posts
 def all_posts_view(request):
         posts = Post.objects.all().order_by('-created_at')
         context = {
@@ -151,37 +153,39 @@ def all_posts_view(request):
   
         return render(request, 'posts/all_posts.html', context)
 
-
-
-    #هنا اضافة كومنت 
+    # Add comment
 def add_comment(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    
+    if not request.user.is_authenticated:
+        messages.error(request, "Please log in to add a comment.")
+        return redirect('accounts:login') 
+        
     if request.method == 'POST':
-        post = get_object_or_404(Post, id=post_id)
-        comment_body = request.POST.get('comment_body', '').strip()
-
-        if not comment_body:
-            messages.warning(request, 'لا يمكن ترك التعليق فارغًا.')
-            return redirect('posts:post_detail', post_id=post.id)
-
-        PostComment.objects.create(
-            user=request.user,
-            post=post,
-            body=comment_body
-        )
+        comment_body = request.POST.get('comment_body') 
         
-        messages.success(request, 'تم إضافة التعليق بنجاح.')
-        return redirect(f'/posts/{post.id}#comments')
+        if comment_body:
+            PostComment.objects.create(
+                post=post,
+                user=request.user,
+                body=comment_body 
+            )
+            messages.success(request, "Comment added successfully.")
+        else:
+            messages.error(request, "Cannot add an empty comment.")
+
+        return redirect('posts:post_detail', post_id=post.id) 
         
-    return HttpResponseBadRequest("Invalid request method.")
+    return redirect('posts:post_detail', post_id=post.id)
 
 
-      # هنا حذف الكومنت 
+      # Delete comment 
 def delete_comment(request, comment_id):
     if request.method == 'POST':
         try:
             comment = PostComment.objects.get(id=comment_id)
         except PostComment.DoesNotExist:
-            messages.error(request, "لم يتم العثور على التعليق.")
+            messages.error(request, "Comment not found.")
             raise Http404("Comment not found.")
 
         user = request.user
@@ -190,18 +194,17 @@ def delete_comment(request, comment_id):
         if comment.user == user or is_moderator_or_staff:
             post_id = comment.post.id 
             comment.delete() 
-            messages.success(request, 'تم حذف التعليق بنجاح.')
+            messages.success(request, 'Comment deleted successfully.')
             return redirect('posts:post_detail', post_id=post_id)
 
         else:
-            messages.error(request, "ليس لديك صلاحية لحذف هذا التعليق.")
+            messages.error(request, "You do not have permission to delete this comment.")
             return redirect('posts:post_detail', post_id=comment.post.id)
             
     return HttpResponseBadRequest("Invalid request method.")
     
     
-    
-    #هنا الحفظ 
+    # Bookmark post
 def post_bookmark(request, post_id):
     if request.method == 'POST':
         post = get_object_or_404(Post, id=post_id)
@@ -210,14 +213,12 @@ def post_bookmark(request, post_id):
         try:
             bookmark = PostBookmark.objects.get(user=user, post=post)
             bookmark.delete()
-            messages.info(request, "تم إلغاء حفظ المنشور.")
+            messages.info(request, "Bookmark removed from post.")
             
         except PostBookmark.DoesNotExist:
             PostBookmark.objects.create(user=user, post=post)
-            messages.success(request, "تم حفظ المنشور بنجاح.")
+            messages.success(request, "Post bookmarked successfully.")
 
         return redirect('posts:post_detail', post_id=post.id)
         
     return HttpResponseBadRequest("Invalid request method. Must be POST.")
-    
-   

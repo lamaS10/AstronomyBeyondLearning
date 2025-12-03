@@ -13,14 +13,13 @@
     <div class="post-content-body">
         <div class="post-header-meta">
             <span class="created-at-date">Created at: {{ post.created_at|date:"M d, Y" }}</span>
-            <div class="post-actions-icons">
-                <button class="action-icon like-btn" data-post-id="{{ post.id }}">
-                    <i class="fas fa-heart"></i> 
-                </button>
-                <button class="action-icon bookmark-toggle" data-post-id="{{ post.id }}">
-                    <i class="fas fa-bookmark"></i>
-                </button>
+            
+            <div class="post-actions-icons"> 
+                <span class="action-icon bookmark-toggle" data-post-id="{{ post.id }}">
+                    <i class="material-icons">bookmark_border</i> 
+                </span>
             </div>
+            
         </div>
 
         <h2 class="post-title-card">
@@ -32,10 +31,19 @@
         </p>
 
         <div class="post-footer-actions">
-            <a href="{% url 'posts:post_detail' post.id %}#comments" class="action-icon comment-link">
-                <i class="fas fa-comment"></i>
-                <span class="comment-count">0</span>
+            
+            <span class="action-stats like-stats">
+                <button class="action-icon like-btn" data-post-id="{{ post.id }}" style="border:none; background:none; padding:0; cursor:pointer;">
+                    <i class="material-icons">favorite_border</i> 
+                </button>
+                <span class="like-count">{{ post.likes.count }}</span>
+            </span>
+
+            <a href="{% url 'posts:post_detail' post.id %}#comments" class="action-stats comment-stats">
+                <i class="material-icons">comment</i> 
+                <span class="comment-count">{{ post.comments.count }}</span> 
             </a>
+
             <a href="{% url 'posts:post_detail' post.id %}" class="read-more-link">
                 Read more
             </a>

@@ -1,6 +1,14 @@
+body {
+    background-image: url('/static/images/bgspace3.jpg');
+    background-size: cover;  
+    background-position: center; 
+    background-attachment: fixed; 
+    color: white; 
+}
+
 .post-detail-container {
     max-width: 550px; 
-    margin: 100px auto; 
+    margin: 90px auto; 
     padding: 20px;
     background-color: #2c2c2c; 
     border-radius: 12px;
@@ -52,6 +60,7 @@
 
 .detail-actions-bar {
     display: flex;
+    justify-content: space-between; 
     gap: 15px; 
     margin-top: 25px;
     padding-top: 15px;
@@ -130,7 +139,7 @@
     border: 1px dashed #444;
     border-radius: 6px;
 }
-/* زر تعديل بدون نص */
+
 .edit-btn {
     display: inline-flex;
     align-items: center;
@@ -140,23 +149,20 @@
     border-radius: 10px;
     cursor: pointer;
     transition: 0.3s ease;
-    position: relative; /* مهم للتولتيب */
+    position: relative; 
 }
 
-/* أيقونة */
 .edit-btn i {
     font-size: 22px;
     color: #cfe0ff;
     transition: 0.3s ease;
 }
 
-/* هOVER */
 .edit-btn:hover {
     background: rgba(255,255,255,0.15);
     transform: translateY(-2px);
 }
 
-/* ===== Tooltip ===== */
 .edit-btn::after {
     content: attr(data-tooltip);
     position: absolute;
@@ -174,11 +180,16 @@
     transition: 0.3s ease;
 }
 
-/* ظهور التولتيب */
 .edit-btn:hover::after {
     opacity: 1;
     bottom: -38px;
 }
 
-
-
+.post-body p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin-top: 20px;
+    white-space: pre-wrap; 
+    word-wrap: break-word; 
+    overflow-wrap: break-word; 
+}

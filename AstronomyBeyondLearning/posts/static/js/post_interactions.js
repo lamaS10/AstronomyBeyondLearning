@@ -1,16 +1,30 @@
 document.addEventListener('DOMContentLoaded', () => {
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                let cookie = cookies[i].trim();
+                if (cookie.startsWith(name + '=')) {
+                    cookieValue = decodeURIComponent(cookies[i].substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    const csrftoken = getCookie('csrftoken');
+
 
     async function toggleLike(postId, likeButton) {
-
-        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value; 
-        
         const url = `/post/${postId}/like/`;
-
+        const icon = likeButton.querySelector('i'); 
+        
         try {
             const response = await fetch(url, {
                 method: 'POST',
                 headers: {
-                    'X-CSRFToken': csrfToken, 
+                    'X-CSRFToken': csrftoken, 
                     'Content-Type': 'application/json'
                 },
             });
@@ -20,22 +34,27 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const data = await response.json(); 
-
             const likeCountElement = likeButton.querySelector('.like-count');
 
             if (data.is_liked) {
-
                 likeButton.classList.add('liked');
+                icon.textContent = 'favorite'; 
             } else {
-
                 likeButton.classList.remove('liked');
+                icon.textContent = 'favorite_border'; 
             }
             
-            likeCountElement.textContent = formatCount(data.total_likes);
+            if (likeCountElement) {
+                likeCountElement.textContent = formatCount(data.total_likes);
+            }
 
         } catch (error) {
             console.error('Error toggling like:', error);
-            alert("Could not process the request. Please log in or try again later.");
+            if (error.message.includes('403')) {
+                 alert("Please log in to like this post.");
+            } else {
+                 alert("Could not process the request. Please try again later.");
+            }
         }
     }
 
@@ -45,10 +64,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         return num.toString();
     }
+    
     document.body.addEventListener('click', (e) => {
         const likeButton = e.target.closest('.like-btn'); 
 
         if (likeButton) {
+            e.preventDefault(); 
             const postId = likeButton.dataset.postId; 
             
             if (postId) {
@@ -57,34 +78,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-});
-
-
-function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            let cookie = cookies[i].trim();
-            if (cookie.startsWith(name + '=')) {
-                cookieValue = decodeURIComponent(cookies[i].substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
-const csrftoken = getCookie('csrftoken');
-
-
-//  منطق حذف البوست (Post Deletion Logic)
-document.addEventListener('DOMContentLoaded', function() {
     const deleteForm = document.getElementById('delete-post-form');
 
     if (deleteForm) {
         deleteForm.addEventListener('submit', function(e) {
             e.preventDefault(); 
-
             const confirmed = confirm("Are you sure you want to delete this post? This action cannot be undone.");
             
             if (confirmed) {
@@ -121,7 +119,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    //  منطق حذف التعليقات (Comment Deletion Logic)
     document.querySelectorAll('.delete-comment-btn').forEach(button => {
         button.addEventListener('click', function(e) {
             e.preventDefault();
@@ -163,11 +160,18 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
 
-    //  منطق الإشارة المرجعية (Bookmark Toggle Logic)
     document.querySelectorAll('.bookmark-toggle').forEach(button => {
-        button.addEventListener('click', function() {
+        const icon = button.querySelector('i'); 
+
+        button.addEventListener('click', function(e) {
+            e.preventDefault(); 
             const postId = this.dataset.postId;
             const url = `/post/${postId}/bookmark/`; 
+
+            if (!icon) {
+                console.error("Bookmark icon not found inside the button.");
+                return;
+            }
 
             fetch(url, {
                 method: 'POST',
@@ -185,11 +189,11 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .then(data => {
                 if (data.is_bookmarked) {
-                    this.textContent = 'Unsave'; 
+                    icon.textContent = 'bookmark'; 
                     this.classList.add('bookmarked'); 
                     this.classList.remove('not-bookmarked');
                 } else {
-                    this.textContent = 'Save'; 
+                    icon.textContent = 'bookmark_border'; 
                     this.classList.add('not-bookmarked');
                     this.classList.remove('bookmarked');
                 }
