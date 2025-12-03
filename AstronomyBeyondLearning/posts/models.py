@@ -28,6 +28,9 @@ class Post(models.Model):
     @property
     def total_likes(self):
         return self.likes.count()
+    
+    def media_type(self):
+        return "image"
 
     def __str__(self):
         return self.title

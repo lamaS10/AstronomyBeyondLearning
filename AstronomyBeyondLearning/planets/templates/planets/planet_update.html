@@ -1,0 +1,44 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block title %} Edit {{ planet.name }} — ABL {% endblock title %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/planet_add.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+
+<div class="auth-card">
+
+    <svg class="border-anim">
+        <rect class="path-blue"></rect>
+        <rect class="path-purple"></rect>
+    </svg>
+
+    <h2>Edit {{ planet.name }}</h2>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {% for field in form %}
+        <div class="form-group">
+            <label>{{ field.label }}</label>
+            {{ field }}
+        </div>
+        {% endfor %}
+
+        <button type="submit" class="primary-btn">Save Changes</button>
+    </form>
+
+    <a href="{% url 'planets:planet_delete_view' planet.id %}" class="delete-link">
+        Delete Planet
+    </a>
+
+</div>
+
+{% endblock content %}
+
+{% block extra_js %}
+<script src="{% static 'js/planet_add.js' %}"></script>
+{% endblock extra_js %}

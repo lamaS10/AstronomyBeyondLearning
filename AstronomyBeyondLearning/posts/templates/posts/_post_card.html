@@ -1,38 +1,22 @@
 {% load static %}
 <div class="post-card">
-    
-    {# 1. تم تصحيح: استخدام post.id بدلاً من post.slug #}
     <a href="{% url 'posts:post_detail' post.id %}">
-        
         <div class="post-media-wrapper">
-            {# هذا هو الكود الذي يجب أن يعمل لجميع الصور #}
-            {% if post.media %}
+            {% if post.media_file %}
                 {% if post.media_type == 'image' %}
-                    <img src="{{ post.media.url }}" alt="{{ post.title }}" class="media-preview">
-                {% elif post.media_type == 'video' %}
-                    <video controls class="media-preview">
-                        <source src="{{ post.media.url }}" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
+                    <img src="{{ post.media_file.url }}" alt="{{ post.title }}" class="media-preview">
                 {% endif %}
-            {% else %}
-                {# 2. تم تصحيح: وضع المسار بين علامات تنصيص لـ {% static %} #}
-                <img src="{% static 'images/default_post_image.jpg' %}" alt="No Media" class="media-preview">
             {% endif %}
         </div>
     </a>
 
     <div class="post-content-body">
-        
         <div class="post-header-meta">
             <span class="created-at-date">Created at: {{ post.created_at|date:"M d, Y" }}</span>
             <div class="post-actions-icons">
-                
                 <button class="action-icon like-btn" data-post-id="{{ post.id }}">
                     <i class="fas fa-heart"></i> 
                 </button>
-                
-                {# 3. تم تصحيح: توحيد كلاس الحفظ لـ bookmark-toggle #}
                 <button class="action-icon bookmark-toggle" data-post-id="{{ post.id }}">
                     <i class="fas fa-bookmark"></i>
                 </button>
@@ -40,7 +24,6 @@
         </div>
 
         <h2 class="post-title-card">
-            {# 1. تم تصحيح: استخدام post.id بدلاً من post.slug #}
             <a href="{% url 'posts:post_detail' post.id %}">{{ post.title|truncatechars:35 }}</a>
         </h2>
 
@@ -49,13 +32,10 @@
         </p>
 
         <div class="post-footer-actions">
-            {# 1. تم تصحيح: استخدام post.id بدلاً من post.slug #}
             <a href="{% url 'posts:post_detail' post.id %}#comments" class="action-icon comment-link">
                 <i class="fas fa-comment"></i>
                 <span class="comment-count">0</span>
             </a>
-            
-            {# 1. تم تصحيح: استخدام post.id بدلاً من post.slug #}
             <a href="{% url 'posts:post_detail' post.id %}" class="read-more-link">
                 Read more
             </a>

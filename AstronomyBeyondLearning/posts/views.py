@@ -36,7 +36,7 @@ def like_post(request, post_id):
 def create_post_view(request):
     if not request.user.is_authenticated:
         messages.warning(request, "You must be logged in to create a post.")
-        return redirect("accounts:login")  
+        return redirect("accounts:sign_in")  
 
     if request.method == "POST":
         title = request.POST.get("title")
@@ -148,6 +148,7 @@ def all_posts_view(request):
         context = {
         'posts': posts
     }
+  
         return render(request, 'posts/all_posts.html', context)
 
 

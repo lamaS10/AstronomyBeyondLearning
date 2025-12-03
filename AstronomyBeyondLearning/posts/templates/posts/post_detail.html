@@ -4,75 +4,85 @@
 {% block title %}Post: {{ post.title }}{% endblock %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'css/post_detail_styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/post_detail_styles.css' %}">
 {% endblock %}
 
 {% block content %}
 <div class="post-detail-container">
-    <div class="post-card-detail fade-in">
-        <div class="post-header">
-            <h1 class="post-title">{{ post.title }}</h1>
-            <p class="post-meta">
-                Posted by 
-                <span class="author-name">{{ post.author.username }}</span> 
-                on {{ post.created_at|date:"M d, Y, h:i A" }}
-            </p>
-        </div>
+    <div class="post-card-detail fade-in">
+        <div class="post-header">
+            <h1 class="post-title">{{ post.title }}</h1>
+            <p class="post-meta">
+                Posted by 
+                <span class="author-name">{{ post.author.username }}</span> 
+                on {{ post.created_at|date:"M d, Y, h:i A" }}
+            </p>
+        </div>
 
-        {% if post.media_file %}
-            <div class="media-container">
-                {% with file_ext=post.media_file.url|lower|slice:"-4:" %}
-                    {% if file_ext == ".mp4" or file_ext == ".mov" %}
-                        <video controls src="{{ post.media_file.url }}" class="post-media"></video>
-                    {% else %}
-                        <img src="{{ post.media_file.url }}" alt="{{ post.title }}" class="post-media">
-                    {% endif %}
-                {% endwith %}
-            </div>
-        {% endif %}
+        {% if post.media_file %}
+            <div class="media-container">
+                {% with file_ext=post.media_file.url|lower|slice:"-4:" %}
+                    {% if file_ext == ".mp4" or file_ext == ".mov" %}
+                        <video controls src="{{ post.media_file.url }}" class="post-media"></video>
+                    {% else %}
+                        <img src="{{ post.media_file.url }}" alt="{{ post.title }}" class="post-media">
+                    {% endif %}
+                {% endwith %}
+            </div>
+        {% endif %}
 
-        <div class="post-body">
-            <p>{{ post.content|linebreaksbr }}</p>
-        </div>
+        <div class="post-body">
+            <p>{{ post.content|linebreaksbr }}</p>
+        </div>
 
-        <div class="detail-actions-bar">
-            
+        <div class="detail-actions-bar">
+
+            
             {# 1. زر الإعجاب (Like) #}
-            {% if request.user.is_authenticated %}
-            <form method="POST" action="{% url 'posts:like_post' post_id=post.id %}" style="display: inline;">
-                {% csrf_token %}
-                <button type="submit" class="action-btn like-btn {% if is_liked %}liked{% endif %}">
-                    <i class="fas fa-heart"></i> 
-                    <span class="like-count">{{ post.total_likes }}</span> Likes
-                </button>
-            </form>
+           {% if request.user.is_authenticated %}
+    <form method="POST" action="{% url 'posts:like_post' post_id=post.id %}" style="display: inline;">
+        {% csrf_token %}
+        <button type="submit" class="action-btn like-btn {% if is_liked %}liked{% endif %}">
+            <!-- إذا كان المنشور معجبًا به، نعرض أيقونة "favorite" -->
+            {% if is_liked %}
+                <i class="material-icons">favorite</i>
             {% else %}
-            <button class="action-btn like-btn disabled">
-                <i class="fas fa-heart"></i> 
-                <span class="like-count">{{ post.total_likes }}</span> Likes
-            </button>
+                <i class="material-icons">favorite_border</i>
             {% endif %}
+        </button>
+    </form>
+{% else %}
+    <button class="action-btn like-btn disabled">
+        <i class="material-icons">favorite_border</i>
+    </button>
+{% endif %}
+
 
             {# 2. زر الحفظ (Bookmark) #}
-            {% if request.user.is_authenticated %}
-            <form method="POST" action="{% url 'posts:post_bookmark' post_id=post.id %}" style="display: inline;">
-                {% csrf_token %}
-                <button type="submit" class="action-btn bookmark-btn {% if is_bookmarked %}bookmarked{% endif %}">
-                    <i class="fas fa-bookmark"></i> 
-                    <span class="bookmark-text">{% if is_bookmarked %}Saved{% else %}Save{% endif %}</span>
-                </button>
-            </form>
+          {% if request.user.is_authenticated %}
+    <form method="POST" action="{% url 'posts:post_bookmark' post_id=post.id %}" style="display: inline;">
+        {% csrf_token %}
+        <button type="submit" class="action-btn bookmark-btn {% if is_bookmarked %}bookmarked{% endif %}">
+            <!-- إذا كان المنشور محفوظًا، نعرض أيقونة "bookmarked" -->
+            {% if is_bookmarked %}
+                <i class="material-icons">bookmark</i> 
+            {% else %}
+                <i class="material-icons">bookmark_border</i> 
             {% endif %}
+        </button>
+    </form>
+{% endif %}
 
-            {# 3. أزرار التعديل والحذف (فقط للمؤلف/الإدارة) #}
-            {% if request.user.is_authenticated and post.author == request.user or request.user.role in 'Staff,Moderator,Admin' %}
-                
+
+
+            {# 3. أزرار التعديل والحذف (فقط للمؤلف/الإدارة) #}
+            {% if request.user.is_authenticated and post.author == request.user or request.user.role in 'Staff,Moderator,Admin' %}
                 {# رابط التعديل #}
-                <a href="{% url 'posts:edit_post' post_id=post.id %}" class="action-btn edit-btn ms-auto">
-                    <i class="fas fa-edit"></i> Edit
-                </a>
-                
-                {# نموذج الحذف #}
+        
+                <a class="edit-btn" href="{% url 'posts:edit_post' post_id=post.id  %}" data-tooltip="Edit Post">
+                    <i class="material-icons">edit_note</i>
+                </a>
+                 {# نموذج الحذف #}
                 <form method="POST" action="{% url 'posts:delete_post' post_id=post.id %}" style="display: inline;">
                     {% csrf_token %}
                     <button type="submit" class="action-btn delete-btn" 
@@ -80,32 +90,36 @@
                         <i class="fas fa-trash"></i> Delete
                     </button>
                 </form>
-            {% endif %}
-        </div>
-    </div>
-    
-    <div class="comments-section" id="comments">
-        <h2>Comments ({{ comments.count }})</h2>
-        
-        {% if request.user.is_authenticated %}
-        <div class="comment-form-box">
+            {% endif %}
+        </div>
+    </div>
+    
+    <div class="comments-section" id="comments">
+        <h2>Comments ({{ comments.count }})</h2>
+        
+        {% if request.user.is_authenticated %}
+        <div class="comment-form-box">
             {# 4. نموذج إضافة التعليق #}
             <form method="POST" action="{% url 'posts:add_comment' post_id=post.id %}">
                 {% csrf_token %}
-                <textarea name="comment_body" id="comment-input" placeholder="Add your comment..." class="form-textarea" required></textarea>
-                <button type="submit" class="btn btn-publish mt-2">Post Comment</button>
+                <textarea name="comment_body" id="comment-input" placeholder="Add your comment..." class="form-textarea" required></textarea>
+                <button type="submit" class="btn btn-publish mt-2">Post Comment</button>
             </form>
-        </div>
-        {% else %}
-        <p class="login-prompt">Please <a href="{% url 'accounts:login' %}">login</a> to post a comment.</p>
-        {% endif %}
-        
-        <div class="comments-list" id="comments-list">
-            {% for comment in comments %}
-            {% empty %}
-                <p class="no-comments-message">No comments yet. Be the first!</p>
-            {% endfor %}
-        </div>
-    </div>
+        </div>
+        {% else %}
+        <p class="login-prompt">Please <a href="{% url 'accounts:login' %}">login</a> to post a comment.</p>
+        {% endif %}
+        
+        <div class="comments-list" id="comments-list">
+            {% for comment in comments %}
+            <div class="comment-box">
+                <p><strong>{{ comment.user.username }}</strong> - {{ comment.created_at|date:"M d, Y" }}</p>
+                <p>{{ comment.body }}</p>
+            </div>
+            {% empty %}
+            <p class="no-comments-message">No comments yet. Be the first!</p>
+            {% endfor %}
+        </div>
+    </div>
 </div>
 {% endblock %}

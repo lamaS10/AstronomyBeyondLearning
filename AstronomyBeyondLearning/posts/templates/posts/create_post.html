@@ -1,0 +1,54 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block title %} Create New Post — ABL {% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/create_post.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+
+<div class="auth-card">
+
+    <svg class="border-anim">
+        <rect class="path-blue"></rect>
+        <rect class="path-purple"></rect>
+    </svg>
+
+    <h2>Add New Post</h2>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label>Title</label>
+            <input type="text" name="title" required minlength="3">
+        </div>
+
+        <div class="form-group">
+            <label>Content</label>
+            <textarea name="content" rows="4" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Image </label>
+
+            <div id="mediaDropZone" class="drop-zone">
+                <p>Drag & Drop or <span class="browse-link">Browse</span></p>
+                <input type="file" id="mediaFile" name="media_file" accept="image/*,video/*">
+            </div>
+
+            <div id="mediaPreview" class="preview-box"></div>
+        </div>
+
+        <button type="submit" class="primary-btn">Publish Post</button>
+    </form>
+
+</div>
+
+{% endblock content %}
+
+{% block extra_js %}
+<script src="{% static 'js/create_post.js' %}"></script>
+{% endblock extra_js %}
