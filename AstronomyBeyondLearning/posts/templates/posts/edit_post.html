@@ -1,0 +1,63 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block title %} Edit Post: {{ post.title }} {% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/create_post.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+
+<div class="auth-card">
+
+    <svg class="border-anim">
+        <rect class="path-blue"></rect>
+        <rect class="path-purple"></rect>
+    </svg>
+
+    <h2>Edit Post</h2>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="{{ form.title.id_for_label }}">Title</label>
+            {{ form.title }} 
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.content.id_for_label }}">Content</label>
+            {{ form.content }}
+        </div>
+
+        <div class="form-group">
+            <label>Current Media:</label>
+            {% if post.media_file %}
+                <p>
+                    Current File: <a href="{{ post.media_file.url }}" target="_blank" class="browse-link">View Current File</a>
+                </p>
+            {% else %}
+                <p>No media file currently uploaded.</p>
+            {% endif %}
+        </div>
+        
+        <div class="form-group">
+            <label>Upload New Media </label>
+            <div id="mediaDropZone" class="drop-zone">
+                
+                {{ form.media_file }} 
+                
+            </div>
+            <div id="mediaPreview" class="preview-box"></div>
+        </div>
+        <button type="submit" class="primary-btn">Save Changes</button>
+    </form>
+
+</div>
+
+{% endblock content %}
+
+{% block extra_js %}
+<script src="{% static 'js/create_post.js' %}"></script>
+{% endblock extra_js %}
