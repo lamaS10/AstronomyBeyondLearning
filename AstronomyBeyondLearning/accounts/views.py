@@ -6,6 +6,8 @@ from django.contrib import messages
 from django.db import transaction
 from .models import UserProfile
 from .forms import SignUpForm, SignInForm
+from posts.models import Post, PostLike, PostBookmark, PostComment
+
 
 
 
@@ -100,23 +102,41 @@ def sign_up(request: HttpRequest):
 
 
 
-def user_profile_view(request:HttpRequest, user_name):
+
+def user_profile_view(request: HttpRequest, user_name):
 
     try:
         profile_user = User.objects.get(username=user_name)
 
-        if not UserProfile.objects.filter(user=profile_user).first():
-            new_profile = UserProfile(user=profile_user)
-            new_profile.save()
-               
+        if not UserProfile.objects.filter(user=profile_user).exists():
+            UserProfile.objects.create(user=profile_user)
+
     except Exception as e:
-        print(e)
-        return render(request, '404.html')
+        print("Profile error:", e)
+        return redirect("main:home")   
+
+
+
+
+    recent_posts = Post.objects.filter(author=profile_user).order_by("-created_at")[:3]
+
+    liked_posts = Post.objects.filter(likes__user=profile_user).distinct()[:3]
+
+    bookmarked_posts = Post.objects.filter(bookmarks_post__user=profile_user).distinct()[:3]
+
+    commented_posts = Post.objects.filter(comments__user=profile_user).distinct()[:3]
+
+
 
     return render(request, 'accounts/profile.html', {
-        "profile_user": profile_user ,
+        "profile_user": profile_user,
 
+        "recent_posts": recent_posts,
+        "liked_posts": liked_posts,
+        "bookmarked_posts": bookmarked_posts,
+        "commented_posts": commented_posts,
     })
+
 
 def log_out(request: HttpRequest):
     logout(request) 
@@ -161,3 +181,70 @@ def update_user_profile(request: HttpRequest):
             print(e)
 
     return render(request, "accounts/update_profile.html")
+
+def user_posts_view(request, user_name):
+
+    try:
+        profile_user = User.objects.get(username=user_name)
+    except User.DoesNotExist:
+        return redirect("main:home")
+
+    posts = Post.objects.filter(author=profile_user).order_by("-created_at")
+
+    return render(request, "accounts/user_posts.html", {
+        "profile_user": profile_user,
+        "posts": posts,
+        "page_title": "All Posts",
+    })
+
+
+
+def user_liked_posts_view(request, user_name):
+
+    try:
+        profile_user = User.objects.get(username=user_name)
+    except User.DoesNotExist:
+        return redirect("main:home")
+
+    posts = Post.objects.filter(likes__user=profile_user).distinct()
+
+    return render(request, "accounts/user_posts.html", {
+        "profile_user": profile_user,
+        "posts": posts,
+        "page_title": "Liked Posts",
+    })
+
+
+
+def user_bookmarked_posts_view(request, user_name):
+
+    try:
+        profile_user = User.objects.get(username=user_name)
+    except User.DoesNotExist:
+        return redirect("main:home")
+
+    posts = Post.objects.filter(bookmarks_post__user=profile_user).distinct()
+
+    return render(request, "accounts/user_posts.html", {
+        "profile_user": profile_user,
+        "posts": posts,
+        "page_title": "Bookmarked Posts",
+    })
+
+
+
+def user_commented_posts_view(request, user_name):
+
+    try:
+        profile_user = User.objects.get(username=user_name)
+    except User.DoesNotExist:
+        return redirect("main:home")
+
+    posts = Post.objects.filter(comments__user=profile_user).distinct()
+
+    return render(request, "accounts/user_posts.html", {
+        "profile_user": profile_user,
+        "posts": posts,
+        "page_title": "Commented Posts",
+    })
+

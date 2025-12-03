@@ -1,0 +1,48 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block title %} About — ABL Galaxy {% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/about.css' %}">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+{% endblock extra_css %}
+
+{% block content %}
+
+<section class="hero-section">
+    <img src="{% static 'images/hero11-about.png' %}" class="hero-bg" alt="">
+
+    <div class="hero-overlay-content">
+        <h1 id="typing-title"></h1>
+        <p id="typing-desc" class="typing-text"></p>
+    </div>
+</section>
+
+<section class="cards-row">
+
+    <div class="info-card">
+        <span class="material-icons-round card-icon">public</span>
+        <h3>Our Mission</h3>
+        <p>Delivering an engaging educational journey through planets and space.</p>
+    </div>
+
+    <div class="info-card">
+        <span class="material-icons-round card-icon">auto_awesome</span>
+        <h3>Experience</h3>
+        <p>Discover planets with details, Quranic verses, and user-driven content.</p>
+    </div>
+
+    <div class="info-card">
+        <span class="material-icons-round card-icon">psychology</span>
+        <h3>Smart Quiz</h3>
+        <p>Get personalized recommendations based on your quiz answers.</p>
+    </div>
+
+</section>
+
+{% endblock content %}
+
+{% block extra_js %}
+<script src="{% static 'js/about.js' %}"></script>
+{% endblock %}

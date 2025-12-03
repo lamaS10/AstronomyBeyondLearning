@@ -25,7 +25,7 @@
         <a href="{% url 'main:home' %}" class="glass-logo">ABL</a>
 
         <div class="glass-center">
-            <a href="#" class="{% if 'about' in request.path %}active-link{% endif %}">About</a>
+            <a href="{% url 'main:about_view' %}" class="{% if 'about' in request.path %}active-link{% endif %}">About</a>
             <a href="{% url 'planets:planets_list' %}"  class="{% if request.path == '/planets/' %}active-link{% endif %}">All Planets</a>
             <a href="{% url 'posts:all_posts' %}" class="{% if 'posts' in request.path %}active-link{% endif %}">All Posts</a>
             <a href="{% url 'posts:create_post' %}"class="{% if 'add_posts' in request.path %}active-link{% endif %}">Add posts</a>

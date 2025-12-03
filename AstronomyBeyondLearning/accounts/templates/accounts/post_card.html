@@ -1,0 +1,12 @@
+<a href="{% url 'posts:post_detail' post.id %}" class="mini-post-card">
+
+    {% if post.media_file %}
+        <img src="{{ post.media_file.url }}" class="mini-post-thumb">
+    {% endif %}
+
+    <div class="mini-post-info">
+        <h3 class="mini-post-title">{{ post.title }}</h3>
+        <p class="mini-date">{{ post.created_at|date:"M d, Y" }}</p>
+    </div>
+
+</a>

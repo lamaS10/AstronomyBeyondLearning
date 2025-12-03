@@ -1,0 +1,133 @@
+body {
+    background: #000;
+    color: white;
+    font-family: "Poppins", sans-serif;
+}
+
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 110vh;
+    margin-top: 70px;
+    overflow: hidden;
+}
+
+.hero-bg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(75%);
+}
+
+.hero-overlay-content {
+    position: absolute;
+    bottom: 15%; 
+    left: 8%;
+    max-width: 600px;
+}
+
+#typing-title {
+    font-size: 60px;
+    font-weight: 800;
+    margin-bottom: 20px;
+}
+
+.typing-text {
+    font-size: 20px;
+    line-height: 1.7;
+    max-width: 650px;
+    color: #e3e3e3;
+}
+
+
+
+.info-card {
+    width: 300px;                   
+    padding: 28px;
+    border-radius: 22px;
+    text-align: center;
+
+    background: rgba(12,14,28,0.45);
+    backdrop-filter: blur(12px);
+
+    border: 1px solid rgba(123,155,255,0.35);
+
+    box-shadow:
+        0 0 18px rgba(100,140,255,0.35),
+        0 8px 22px rgba(0,0,0,0.45),
+        inset 0 -15px 35px rgba(70,110,255,0.22);
+
+    transition: 0.3s ease;
+}
+.cards-row {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin: 70px auto;
+    padding: 0 20px;
+}
+
+
+.info-card:hover {
+    transform: translateY(-6px);
+
+    box-shadow:
+        0 0 25px rgba(130,160,255,0.55), 
+        0 12px 28px rgba(0,0,0,0.55),
+        inset 0 -22px 45px rgba(100,140,255,0.32);
+}
+
+.card-icon {
+    font-size: 42px;
+    margin-bottom: 18px;
+    color: #9fc5ff;
+    filter: drop-shadow(0 0 8px rgba(150,180,255,0.6));
+}
+
+.info-card h3 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #ffffff;
+}
+
+.info-card p {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #c5cee0;
+}
+
+
+
+
+
+/* ipad*/
+@media (max-width: 900px) {
+    .info-card {
+        width: 45%;  
+    }
+}
+
+/* phone */
+@media (max-width: 600px) {
+    .info-card {
+        width: 90%;     
+    }
+
+    .cards-row {
+        gap: 18px;
+    }
+
+    #typing-title {
+        font-size: 40px; 
+    }
+
+    .typing-text {
+        font-size: 16px;
+    }
+
+    .hero-overlay-content {
+        left: 6%;
+        bottom: 18%; 
+    }
+}

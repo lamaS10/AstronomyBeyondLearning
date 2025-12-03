@@ -1,0 +1,31 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block title %} {{ page_title }} — {{ profile_user.username }} {% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+
+<div class="posts-page">
+
+    <h2 class="section-title">{{ page_title }}</h2>
+
+    {% if posts %}
+        <div class="user-posts">
+
+            {% for post in posts %}
+                {% include "accounts/post_card.html" with post=post %}
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+        <p class="posts-placeholder">No posts to display.</p>
+    {% endif %}
+
+</div>
+
+{% endblock content %}

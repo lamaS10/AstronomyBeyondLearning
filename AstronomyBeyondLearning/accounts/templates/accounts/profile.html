@@ -27,9 +27,10 @@
         </p>
 
         {% if request.user == profile_user %}
-        <a class="edit-btn" href="{% url 'accounts:update_profile' %}">
-            Edit Profile
+        <a class="edit-btn" href="{% url 'accounts:update_profile' %}" data-tooltip="Edit Profile">
+            <i class="material-icons">manage_accounts</i>
         </a>
+
         {% endif %}
 
     </div>
@@ -64,9 +65,89 @@
         <div class="section-divider"></div>
 
         <h2 class="section-title">Posts</h2>
-        <p class="posts-placeholder">
-            User posts will appear here once the feature is implemented.
-        </p>
+        <p class="section-subtitle">Recent posts by {{ profile_user.username }}</p>
+
+
+        {% if recent_posts %}
+            <div class="user-posts">
+                {% for post in recent_posts %}
+                    {% include "accounts/post_card.html" with post=post %}
+                {% endfor %}
+            </div>
+            <div class="btn-row-right">
+                <a href="{% url 'accounts:user_posts' profile_user.username %}" class="neon-btn">
+                    View all posts
+                </a>
+            </div>
+
+        {% else %}
+            <p class="posts-placeholder">No posts yet.</p>
+        {% endif %}
+
+
+        <div class="section-divider"></div>
+        <h2 class="section-title">Liked Posts</h2>
+
+        {% if liked_posts %}
+            <div class="user-posts">
+                {% for post in liked_posts %}
+                    {% include "accounts/post_card.html" with post=post %}
+                {% endfor %}
+            </div>
+
+            <div class="btn-row-right">
+                <a href="{% url 'accounts:user_liked_posts' profile_user.username %}" class="neon-btn">
+                    View all liked posts →
+                </a>
+            </div>
+
+        {% else %}
+            <p class="posts-placeholder">No liked posts.</p>
+        {% endif %}
+
+
+        <div class="section-divider"></div>
+        <h2 class="section-title">Bookmarked Posts</h2>
+
+        {% if bookmarked_posts %}
+            <div class="user-posts">
+                {% for post in bookmarked_posts %}
+                    {% include "accounts/post_card.html" with post=post %}
+                {% endfor %}
+            </div>
+            <div class="btn-row-right">
+                <a href="{% url 'accounts:user_bookmarked_posts' profile_user.username %}" class="neon-btn">
+                    View all bookmarked posts →
+                </a>
+            </div>
+
+        {% else %}
+            <p class="posts-placeholder">No bookmarked posts.</p>
+        {% endif %}
+
+
+        <div class="section-divider"></div>
+        <h2 class="section-title">Commented Posts</h2>
+
+        {% if commented_posts %}
+            <div class="user-posts">
+                {% for post in commented_posts %}
+                    {% include "accounts/post_card.html" with post=post %}
+                {% endfor %}
+            </div>
+            <div class="btn-row-right">
+                <a href="{% url 'accounts:user_commented_posts' profile_user.username %}" class="neon-btn">
+                    View all commented posts →
+                </a>
+            </div>
+
+        {% else %}
+            <p class="posts-placeholder">No commented posts.</p>
+        {% endif %}
+
+
+
+
 
     </div>
 
