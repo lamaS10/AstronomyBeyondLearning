@@ -26,6 +26,7 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('planets/', include('planets.urls')),
     path('posts/', include('posts.urls')),
+    path("games/", include("games.urls")),
     
 ] +  static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

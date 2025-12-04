@@ -28,12 +28,18 @@
         </div>
         {% endfor %}
 
-        <button type="submit" class="primary-btn">Save Changes</button>
+        {% if user.is_staff %}
+            <button type="submit" class="primary-btn">Save Changes</button>
+        {% endif %}
+
     </form>
 
-    <a href="{% url 'planets:planet_delete_view' planet.id %}" class="delete-link">
-        Delete Planet
-    </a>
+    
+    {% if user.is_staff %}
+        <a href="{% url 'planets:planet_delete_view' planet.id %}" class="delete-link">
+            Delete Planet
+        </a>
+    {% endif %}
 
 </div>
 

@@ -1,0 +1,26 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="game-card">
+
+    <h2>True or False – Space Edition</h2>
+
+    <p class="fact-text">{{ fact.statement }}</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <button name="answer" value="true" class="true-btn">True</button>
+        <button name="answer" value="false" class="false-btn">False</button>
+    </form>
+
+    {% if user_answer %}
+        {% if result %}
+            <p class="correct">Correct! 🎉</p>
+        {% else %}
+            <p class="wrong">Wrong ❌</p>
+        {% endif %}
+    {% endif %}
+
+</div>
+{% endblock %}
