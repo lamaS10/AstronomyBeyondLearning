@@ -51,7 +51,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    // ---------- BORDER ANIMATION SETUP ----------
     const card = document.querySelector(".auth-card");
     const svg = document.querySelector(".border-anim");
     const blue = document.querySelector(".path-blue");
