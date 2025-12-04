@@ -1,29 +1,40 @@
 {% extends "main/base.html" %}
 {% load static %}
 
-{% block title %} All Planets — ABL {% endblock title %}
+{% block title %} All Planets  {% endblock title %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/all_planets.css' %}">
-<link rel="stylesheet" href="{% static 'css/planet_card.css' %}">
 {% endblock extra_css %}
 
 {% block content %}
+<div class="planet-gallery">
+    <img src="{% static 'images/bgspace3.jpg' %}" class="background-space">
 
-<div class="planets-container">
+    {% for p in planets %}
+    <div class="planet-card" data-index="{{ forloop.counter0 }}">
+        
+        <div class="planet-card-content">
+            <h1>{{ p.name }}</h1>
+            <a href="{% url 'planets:planet_detail' p.id %}" class="detail-btn">View Details</a>
+        </div>
 
-    <h2 class="page-title">All Planets</h2>
-
-    <div class="planets-grid">
-
-        {% for planet in planets %}
-            {% include "planets/planet_card.html" with planet=planet %}
-        {% empty %}
-            <p class="no-planets">No planets found.</p>
-        {% endfor %}
+        <div class="planet-img-wrapper">
+            <img src="{{ p.image.url }}" alt="{{ p.name }}">
+        </div>
 
     </div>
+    {% endfor %}
+
+    <button class="arrow left" onclick="prevPlanet()">&#10094;</button>
+    <button class="arrow right" onclick="nextPlanet()">&#10095;</button>
 
 </div>
 
+
+
 {% endblock content %}
+{% block extra_js %}
+<script src="{% static 'js/all_planets.js' %}"></script>
+{% endblock extra_js %}
+

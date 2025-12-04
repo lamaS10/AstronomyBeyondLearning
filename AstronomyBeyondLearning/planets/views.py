@@ -1,6 +1,6 @@
 from django.shortcuts import render , redirect
 from django.contrib import messages
-from .models import Planet
+from .models import Planet,BookmarkPlanet
 from .forms import PlanetForm
 from django.core.paginator import Paginator
 
@@ -43,8 +43,15 @@ def planet_detail_view(request, planet_id):
     except Planet.DoesNotExist:
         messages.error(request, "Planet does not exist", "alert-danger")
         return redirect("planets:planets_list")
+    
+    is_bookmarked = False
+    if request.user.is_authenticated:
+        is_bookmarked = BookmarkPlanet.objects.filter(
+            planet=planet,
+            user=request.user
+        ).exists()
 
-    # paginator بيسوي صفحتين: 1 = overview , 2 = details
+   
     pages = ["overview", "details"]
 
     paginator = Paginator(pages, 1)
@@ -54,7 +61,7 @@ def planet_detail_view(request, planet_id):
     return render(
         request,
         "planets/planet_detail.html",
-        {"planet": planet, "page_obj": page_obj}
+        {"planet": planet, "page_obj": page_obj, "is_bookmarked": is_bookmarked}
     )
 
 
@@ -106,4 +113,31 @@ def planet_update_view(request, planet_id):
         "planet": planet,
         "form": form,
     })
+
+def toggle_bookmark_view(request, planet_id):
+
+    if not request.user.is_authenticated:
+        messages.error(request, "Please log in to bookmark planets.")
+        return redirect("accounts:sign_in")
+
+    planet = Planet.objects.get(id=planet_id)
+
+   
+    existing = BookmarkPlanet.objects.filter(
+        planet=planet,
+        user=request.user
+    )
+
+    if existing.exists():
+        existing.delete()
+        messages.warning(request, "Bookmark removed.")
+    else:
+        BookmarkPlanet.objects.create(
+            planet=planet,
+            user=request.user
+        )
+        messages.success(request, "Planet bookmarked.")
+
+    return redirect("planets:planet_detail", planet_id=planet_id)
+
 

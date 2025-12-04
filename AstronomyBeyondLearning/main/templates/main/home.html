@@ -94,7 +94,7 @@
      
       <div class="planet-panel" id="earth">
         <div class="planet-image">
-          <img src="{% static 'images/earth.jpg' %}" alt="Earth">
+          <img src="{% static 'images/earth.png' %}" alt="Earth">
         </div>
         <audio class="planet-audio">
             <source src="{% static 'audio/earth.mp3' %}" type="audio/mpeg">
@@ -144,6 +144,59 @@
 
     </div>
   </div>
+</section>
+
+<section class="contact-fullscreen">
+
+    <img src="{% static 'images/contact_background.jpg' %}" class="contact-bg" alt="Contact Background">
+
+    <div class="contact-overlay"></div>
+
+    <div class="contact-card">
+
+        <h2>CONTACT US</h2>
+
+        <form>
+
+            <div class="row">
+                <div class="field">
+                    <label>First Name</label>
+                    <input type="text">
+                </div>
+
+                <div class="field">
+                    <label>Last Name</label>
+                    <input type="text">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="field">
+                    <label>Email</label>
+                    <input type="email">
+                </div>
+
+                <div class="field">
+                    <label>Phone Number</label>
+                    <input type="text">
+                </div>
+            </div>
+
+            <div class="field">
+                <label>Message</label>
+                <textarea rows="4"></textarea>
+            </div>
+
+            <div class="checkbox">
+                <input type="checkbox" id="terms">
+                <label for="terms">I accept the terms of data processing.</label>
+            </div>
+
+            <button type="submit" class="contact-btn">Submit</button>
+
+        </form>
+    </div>
+
 </section>
 
 {% endblock content %}

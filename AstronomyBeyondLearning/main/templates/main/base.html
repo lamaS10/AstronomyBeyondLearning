@@ -25,13 +25,32 @@
         <a href="{% url 'main:home' %}" class="glass-logo">ABL</a>
 
         <div class="glass-center">
-            <a href="{% url 'main:about_view' %}" class="{% if 'about' in request.path %}active-link{% endif %}">About</a>
-            <a href="{% url 'planets:planets_list' %}"  class="{% if request.path == '/planets/' %}active-link{% endif %}">All Planets</a>
-            <a href="{% url 'posts:all_posts' %}" class="{% if 'posts' in request.path %}active-link{% endif %}">All Posts</a>
-            <a href="{% url 'posts:create_post' %}"class="{% if 'add_posts' in request.path %}active-link{% endif %}">Add posts</a>
-            <a href="{% url 'planets:planets_add_view' %}" class="{% if 'add_planets' in request.path %}active-link{% endif %}">Add planets</a>
-           
+            <a href="{% url 'main:about_view' %}"
+            class="{% if 'about' in request.path %}active-link{% endif %}">
+                About
+            </a>
+
+            <a href="{% url 'planets:planets_list' %}"
+            class="{% if 'all/planets' in request.path %}active-link{% endif %}">
+                All Planets
+            </a>
+
+            <a href="{% url 'posts:all_posts' %}"
+            class="{% if 'all/posts' in request.path %}active-link{% endif %}">
+                All Posts
+            </a>
+
+            <a href="{% url 'posts:create_post' %}"
+            class="{% if 'create/' in request.path %}active-link{% endif %}">
+                Add posts
+            </a>
+
+            <a href="{% url 'planets:planets_add_view' %}"
+            class="{% if 'add/' in request.path and 'planets' in request.path %}active-link{% endif %}">
+                Add planets
+            </a>
         </div>
+
 
         <div class="glass-right">
 
@@ -80,21 +99,24 @@
   
     <footer class="footer">
         <div class="footer-wrapper">
+
+          
             <div class="footer-col site-name">
-                <h4 class="footer-glow">ABL</h4>
+                <h4>ABL</h4>
                 <p class="footer-subtitle">Astronomy Beyond Learning — Explore the universe.</p>
             </div>
 
+          
             <div class="footer-col">
                 <h4>Useful</h4>
-                <a href="#">About</a>
-                <a href="#">FAQ</a>
-                <a href="#">Terms</a>
+                <a href="https://www.nasa.gov" target="_blank">NASA</a>
             </div>
+
         </div>
 
         <p class="footer-copy">© 2025 ABL — Astronomy Beyond Learning</p>
     </footer>
+
 
 
 

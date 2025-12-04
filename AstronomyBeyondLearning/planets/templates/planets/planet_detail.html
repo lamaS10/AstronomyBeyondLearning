@@ -8,6 +8,7 @@
 {% endblock extra_css %}
 
 {% block content %}
+<img src="{% static 'images/bgspace3.jpg' %}" class="stars-bg">
 
 {% if page_obj.number == 1 %}
 <!--OVERVIEW -->
@@ -16,6 +17,24 @@
 
     <div class="planet-left">
         <h1 class="planet-name">{{ planet.name }}</h1>
+          {% if user.is_authenticated %}
+            <a href="{% url 'planets:bookmark' planet.id %}" class="bookmark-icon">
+                {% if is_bookmarked %}
+                    <i class="material-icons filled">bookmark</i>
+                {% else %}
+                    <i class="material-icons">bookmark_border</i>
+                {% endif %}
+            </a>
+        {% endif %}
+        {% if user.is_staff %}
+        <a href="{% url 'planets:planet_update_view' planet.id %}" class="icon-btn edit">
+            <i class="material-icons">edit</i>
+        </a>
+
+        <a href="{% url 'planets:planet_delete_view' planet.id %}" class="icon-btn delete">
+            <i class="material-icons">delete</i>
+        </a>
+        {% endif %}
 
         <p class="planet-category">{{ planet.get_category_display }}</p>
 
@@ -37,6 +56,7 @@
     </div>
 
 </div>
+
 
 {% else %}
 <!--DETAILS -->
@@ -110,6 +130,23 @@
 
 </div>
 
+<!-- Weight Calculator -->
+<div class="weight-box">
+    <h3>Calculate Your Weight on Earth</h3>
+
+    <div class="weight-row">
+        <label>Enter your weight on Earth (kg):</label>
+        <input type="number" id="earthWeight" placeholder="e.g., 60">
+        <button onclick="calculateWeight()">Calculate</button>
+    </div>
+
+    <p id="weightResult"></p>
+
+    <input type="hidden" id="planetGravity" value="{{ planet.gravity }}">
+</div>
+
+
+
 <div class="btns-wrapper">
     <a href="?page=1" class="detail-btn">← Back</a>
 </div>
@@ -118,3 +155,8 @@
 {% endif %}
 
 {% endblock content %}
+
+{% block extra_js %}
+<script src="{% static 'js/planet_detail.js' %}"></script>
+
+{% endblock extra_js %}

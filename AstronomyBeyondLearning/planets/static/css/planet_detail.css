@@ -10,9 +10,20 @@
     justify-content: space-between;
     gap: 40px;
 }
+.stars-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    opacity: 0.35; 
+}
 
 .planet-left {
     width: 55%;
+    margin-left: 60px;
 }
 
 .planet-name {
@@ -60,31 +71,105 @@
 .btns-wrapper {
     width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
+    margin-left: 60px;
     gap: 20px;
     margin-top: 35px;
+}
+.icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 12px;
+    padding: 6px;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.2s ease;
+}
+
+.icon-btn i {
+    font-size: 26px;
+}
+
+
+.icon-btn.edit i {
+    color: #7EC8FF;
+}
+
+.icon-btn.edit:hover {
+    background: rgba(126, 200, 255, 0.15);
+}
+
+
+.icon-btn.delete i {
+    color: #ff6b6b;
+}
+
+.icon-btn.delete:hover {
+    background: rgba(255, 107, 107, 0.15);
+}
+
+.planet-name {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.bookmark-icon i {
+    font-size: 32px;
+    color: #7EC8FF;
+    cursor: pointer;
+    transition: .3s ease;
+}
+
+.bookmark-icon i.filled {
+    color: #ffd369;
+}
+
+.bookmark-icon:hover i {
+    transform: scale(1.2);
 }
 
 
 .planet-right {
-    width: 45%;
-    display: flex;
-    justify-content: center;
+    position: relative;
+    width: 100%;
+    height: 600px; 
 }
 
+
 .planet-circle-img {
-    width: 340px;
-    height: 340px;
+    position: absolute;
+    right: -120px;  
+    top: 60%;
+    transform: translateY(-50%);
+    
+    width: 800px;   
+    height: 800px;
     border-radius: 50%;
     object-fit: cover;
-    box-shadow: 0 0 40px rgba(255,255,255,0.15);
-    transition: 0.3s;
+
+  
+    filter: drop-shadow(0 0 200px rgba(0,0,0,1));
+
+    
+    -webkit-mask-image: radial-gradient(circle at center,
+                     rgba(0,0,0,1) 80%,
+                     rgba(0,0,0,0) 100%);
+    mask-image: radial-gradient(circle at center,
+                     rgba(0,0,0,1) 50%,
+                     rgba(0,0,0,0) 100%);
+
+    transition: .4s ease;
 }
 
 .planet-circle-img:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 60px rgba(255,255,255,0.25);
+    filter: drop-shadow(0 0 260px rgba(0,0,0,1));
+    transform: translateY(-50%) scale(1.03);
 }
+
+
 
 
 /*page 2*/
@@ -115,7 +200,7 @@
     display: flex;
     flex-direction: column;
     gap: 45px;
-    margin-left: 80px;
+    margin-left: 100px;
     margin-right: 80px;
 }
 
@@ -123,13 +208,14 @@
     font-family: "Audiowide", sans-serif;
     font-size: 18px;
     color: #b5d9ff;
-    margin-bottom: 5px;
+    margin-top: -40px;
 }
 
 
 .fact-item {
     position: relative;
     padding-top: 25px;
+    
 }
 
 
@@ -140,23 +226,22 @@
     height: 3px;
     background: #c7c7c7;
     opacity: 0.7;
+    z-index: -1; 
 }
 
 
 .facts-left .fact-item::before {
-    width: 180px;
-    right: 100%;      
-    margin-right: 20px;
+    width: 140px;
+    left: 100%;      
+    margin-left: 25px;
 }
 
 
 .facts-right .fact-item::before {
-    width: 180px;
-    left: 100%;      
-    margin-left: 20px;
+    width: 140px;
+    right: 100%;      
+    margin-right: 40px;
 }
-
-
 
 
 .planet-rotate {
@@ -167,8 +252,8 @@
 }
 
 .planet-rotate-img {
-    width: 420px;   
-    height: 420px;
+    width: 520px;   
+    height: 520px;
     border-radius: 50%;
     overflow: hidden;
     box-shadow: 0 0 40px rgba(232, 234, 235, 0.7);
@@ -176,19 +261,21 @@
 }
 
 .planet-rotate-img img {
-    width: 200%;
+    width: 100%;
     height: 100%;
     object-fit: cover;
-    animation: rotatePlanet 30s linear infinite;
+    animation: spinPlanet 30s linear infinite;
+    border-radius: 50%;
 }
 
-
-@keyframes rotatePlanet {
-    100% {
-        transform: translateX(-50%);
+@keyframes spinPlanet {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
     }
 }
-
 
 
 @media (max-width: 900px) {
