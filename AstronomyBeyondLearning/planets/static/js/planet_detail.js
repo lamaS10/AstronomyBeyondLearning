@@ -12,5 +12,6 @@ function calculateWeight() {
     const result = w * (gravity / earthGravity);
 
     document.getElementById("weightResult").innerText =
-        "Your weight on this planet: " + result.toFixed(2) + " kg";
+    "Your weight on " + planetName.value + ": " + result.toFixed(2) + " kg";
+
 }

@@ -10,7 +10,7 @@ from django.core.paginator import Paginator
 
 def planets_add_view(request):
 
-    if not request.user:
+    if not request.user.is_staff:
         messages.warning(request, "Only staff can add planets", "alert-warning")
         return redirect("main:home")
 
@@ -28,8 +28,6 @@ def planets_add_view(request):
     return render(request, "planets/add_planet.html", {
         "form": form,
     })
-
-
 
 
 def planets_list_view(request):
@@ -69,7 +67,7 @@ def planet_delete_view(request, planet_id):
 
     if not request.user.is_staff:
         messages.warning(request, "Only staff can delete planets", "alert-warning")
-        return redirect("main:home_view")
+        return redirect("main:home")
 
     try:
         planet = Planet.objects.get(id=planet_id)

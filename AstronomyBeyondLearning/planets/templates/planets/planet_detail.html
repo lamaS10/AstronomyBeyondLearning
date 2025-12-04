@@ -130,12 +130,12 @@
 
 </div>
 
-<!-- Weight Calculator -->
+
 <div class="weight-box">
-    <h3>Calculate Your Weight on Earth</h3>
+    <h3>Calculate Your Weight on {{ planet.name }}</h3>
 
     <div class="weight-row">
-        <label>Enter your weight on Earth (kg):</label>
+        <label>Your weight on Earth (kg):</label>
         <input type="number" id="earthWeight" placeholder="e.g., 60">
         <button onclick="calculateWeight()">Calculate</button>
     </div>
@@ -143,8 +143,8 @@
     <p id="weightResult"></p>
 
     <input type="hidden" id="planetGravity" value="{{ planet.gravity }}">
+    <input type="hidden" id="planetName" value="{{ planet.name }}">
 </div>
-
 
 
 <div class="btns-wrapper">

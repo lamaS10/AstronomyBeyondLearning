@@ -9,6 +9,8 @@
 
 {% block content %}
 
+{% if user.is_staff %}
+
 <div class="auth-card">
 
     <svg class="border-anim">
@@ -33,7 +35,12 @@
 
 </div>
 
+{% else %}
+    <p class="no-access">Only staff members can add planets.</p>
+{% endif %}
+
 {% endblock content %}
+
 
 {% block extra_js %}
 <script src="{% static 'js/planet_add.js' %}"></script>
