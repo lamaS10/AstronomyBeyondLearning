@@ -11,9 +11,41 @@
 <div class="planet-gallery">
     <img src="{% static 'images/bgspace3.jpg' %}" class="background-space">
 
+
+
+
+
+  <form method="GET" action="{% url 'planets:planets_search_view' %}" class="search-bar-container">
+        <input 
+            type="text" 
+            name="search" 
+            placeholder="Search for a planet"
+            value="{{ query }}"
+            class="search-input"
+        >
+        <select name="category" class="search-input">
+            <option value="">Select Category</option>
+            <option value="Gas Giant" {% if category == "Gas Giant" %}selected{% endif %}>Gas Giant</option>
+            <option value="Terrestrial" {% if category == "Terrestrial" %}selected{% endif %}>Terrestrial</option>
+            <option value="Terrestrial" {% if category == "ice_giant" %}selected{% endif %}>Ice Giant</option>
+            <option value="Terrestrial" {% if category == "dwarf" %}selected{% endif %}>Dwarf Planet</option>
+
+
+        </select>
+
+        <button class="search-button">Search</button>
+    </form>
+
+
+
+
     {% for p in planets %}
     <div class="planet-card" data-index="{{ forloop.counter0 }}">
         
+
+
+  
+    
         <div class="planet-card-content">
             <h1>{{ p.name }}</h1>
             <a href="{% url 'planets:planet_detail' p.id %}" class="detail-btn">View Details</a>

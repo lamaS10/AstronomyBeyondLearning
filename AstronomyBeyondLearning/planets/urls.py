@@ -10,6 +10,8 @@ urlpatterns = [
     path("update/<int:planet_id>/", views.planet_update_view, name="planet_update_view"),
     path("delete/<int:planet_id>/", views.planet_delete_view, name="planet_delete_view"),
     path("bookmark/<int:planet_id>/", views.toggle_bookmark_view, name='bookmark'),
+    path('search/', views.planets_search_view, name='planets_search_view'),
+
 
 
 

@@ -139,3 +139,20 @@ def toggle_bookmark_view(request, planet_id):
     return redirect("planets:planet_detail", planet_id=planet_id)
 
 
+#سيرش الكواكب
+def planets_search_view(request):
+    query = request.GET.get("search")
+    category = request.GET.get("category") 
+    planets = Planet.objects.all()
+
+    if query:
+        planets = planets.filter(name__icontains=query)
+
+    if category:
+        planets = planets.filter(category__icontains=category)  
+
+    return render(request, "planets/planet_search.html", {'planets': planets, 'query': query, 'category': category})
+
+
+
+
