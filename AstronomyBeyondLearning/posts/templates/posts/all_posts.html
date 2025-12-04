@@ -13,12 +13,25 @@
 {% endblock %}
 
 {% block content %}
+
+  
+    
 <div class="posts-feed-container">
     <div class="feed-header mb-5">
         <div class="page-description">
             <h1>Cosmic Chronicles</h1>
             <p>Explore the latest celestial discoveries shared by our community.</p>
         </div>
+          <form method="GET" action="{% url 'posts:post_search_view' %}" class="search-bar-container">
+        <input 
+            type="text" 
+            name="search" 
+            placeholder="Search celestial discoveries..." 
+            value="{{ query }}" 
+            class="search-input"
+        >
+        <button type="submit" class="search-button">Search</button>
+    </form>
     </div> 
     <div class="post-grid">
         {% for post in posts %}

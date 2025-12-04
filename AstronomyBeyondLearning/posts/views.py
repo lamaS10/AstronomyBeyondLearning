@@ -222,3 +222,15 @@ def post_bookmark(request, post_id):
         return redirect('posts:post_detail', post_id=post.id)
         
     return HttpResponseBadRequest("Invalid request method. Must be POST.")
+
+
+#  سيرش بوست 
+
+def post_search_view(request):
+    query = request.GET.get("search")
+    posts = []
+
+    if query:
+        posts = Post.objects.filter(title__icontains=query) 
+
+    return render(request, 'posts/search_posts.html', {'posts': posts, 'query': query})

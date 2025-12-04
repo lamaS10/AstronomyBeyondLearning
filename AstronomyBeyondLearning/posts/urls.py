@@ -6,6 +6,8 @@ app_name = 'posts'
 urlpatterns = [
 
     path('post/<int:post_id>/', views.post_detail_view, name='post_detail'),
+    path('search/', views.post_search_view, name='post_search_view'),  
+
 
     path('post/<int:post_id>/like/', views.like_post, name='like_post'),
     path('post/<int:post_id>/comment/add/', views.add_comment, name='add_comment'),
@@ -15,7 +17,8 @@ urlpatterns = [
 
     path('comment/<int:comment_id>/delete/', views.delete_comment, name='delete_comment'),
     path('create/', views.create_post_view, name='create_post'),
-    path('all/posts', views.all_posts_view, name='all_posts'),
+    path('all/posts/', views.all_posts_view, name='all_posts'),
+
 ]
         
                                                                    

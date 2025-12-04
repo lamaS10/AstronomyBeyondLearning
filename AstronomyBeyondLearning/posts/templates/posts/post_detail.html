@@ -65,21 +65,22 @@
                 {% endif %}
             </div>
 
-            <div class="edit-delete-group">
-                {% if request.user.is_authenticated and post.author == request.user or request.user.is_superuser or request.user.is_staff %}
-                    <a class="edit-btn" href="{% url 'posts:edit_post' post_id=post.id %}" data-tooltip="Edit Post">
-                        <i class="material-icons">edit_note</i>
-                    </a>
+       <div class="edit-delete-group">
+    {% if request.user.is_authenticated and post.author == request.user or request.user.is_superuser or request.user.is_staff %}
+        <a class="icon-btn edit" href="{% url 'posts:edit_post' post_id=post.id %}" data-tooltip="Edit Post">
+            <i class="material-icons">edit</i> 
+        </a>
 
-                    <form method="POST" action="{% url 'posts:delete_post' post_id=post.id %}" style="display: inline;">
-                        {% csrf_token %}
-                        <button type="submit" class="action-btn delete-btn" 
-                                onclick="return confirm('Are you sure you want to delete this post?');">
-                            <i class="fas fa-trash"></i> Delete
-                        </button>
-                    </form>
-                {% endif %}
-            </div>
+        <form method="POST" action="{% url 'posts:delete_post' post_id=post.id %}" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" class="icon-btn delete-btn" 
+                    onclick="return confirm('Are you sure you want to delete this post?');">
+                <i class="material-icons">delete</i> 
+            </button>
+        </form>
+    {% endif %}
+</div>
+
         </div>
 
         <div class="post-body">
@@ -89,18 +90,6 @@
 
     <div class="comments-section" id="comments">
         <h2>Comments ({{ comments.count }})</h2>
-        
-        {% if request.user.is_authenticated %}
-        <div class="comment-form-box">
-            <form method="POST" action="{% url 'posts:add_comment' post_id=post.id %}">
-                {% csrf_token %}
-                <textarea name="comment_body" id="comment-input" placeholder="Add your comment..." class="form-textarea" required></textarea>
-                <button type="submit" class="btn btn-publish mt-2">Post Comment</button>
-            </form>
-        </div>
-        {% else %}
-        <p class="login-prompt">Please <a href="{% url 'accounts:login' %}">login</a> to post a comment.</p>
-        {% endif %}
         
         <div class="comments-list" id="comments-list">
             {% for comment in comments %}
@@ -112,6 +101,18 @@
             <p class="no-comments-message">No comments yet. Be the first!</p>
             {% endfor %}
         </div>
+
+        {% if request.user.is_authenticated %}
+        <div class="comment-form-box">
+            <form method="POST" action="{% url 'posts:add_comment' post_id=post.id %}">
+                {% csrf_token %}
+                <textarea name="comment_body" id="comment-input" placeholder="Add your comment..." class="form-textarea" required></textarea>
+                <button type="submit" class="btn btn-publish mt-2">Post Comment</button>
+            </form>
+        </div>
+        {% else %}
+        <p class="login-prompt">Please <a href="{% url 'accounts:sign_in' %}">sign_in</a> to add a comment.</p>
+        {% endif %}
     </div>
 </div>
 {% endblock content %}
