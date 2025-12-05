@@ -234,3 +234,7 @@ def post_search_view(request):
         posts = Post.objects.filter(title__icontains=query) 
 
     return render(request, 'posts/search_posts.html', {'posts': posts, 'query': query})
+
+
+
+

@@ -4,14 +4,12 @@
 {% block content %}
 
 <head>
-    <!-- ربط ملف الـ CSS -->
     <link rel="stylesheet" href="{% static 'css/planet_search.css' %}">
 </head>
 
 <div class="search-page-wrapper">
 
     <h1 class="search-title">Search Results</h1>
-    <p class="results-count">{{ planets|length }} results found</p> 
 
     <form method="GET" action="{% url 'planets:planets_search_view' %}" class="search-bar-container">
         <input 
@@ -22,14 +20,12 @@
             class="search-input"
         >
 
-        <!-- فلتر التصنيف -->
         <select name="category" class="search-input">
             <option value="">Select Category</option>
             <option value="Gas Giant" {% if category == "Gas Giant" %}selected{% endif %}>Gas Giant</option>
             <option value="Terrestrial" {% if category == "Terrestrial" %}selected{% endif %}>Terrestrial</option>
             <option value="Ice_Giant" {% if category == "Ice_Giant" %}selected{% endif %}>Ice Giant</option>
             <option value="Dwarf" {% if category == "Dwarf" %}selected{% endif %}>Dwarf Planet</option>
-            <!-- يمكن إضافة فئات أخرى هنا -->
         </select>
 
         <button class="search-button">Search</button>

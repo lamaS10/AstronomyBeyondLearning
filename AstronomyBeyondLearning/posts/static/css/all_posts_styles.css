@@ -267,7 +267,43 @@ display: none;
 }
 
 
+@media screen and (max-width: 1024px) {
+    .post-grid {
+        gap: 20px;  
+    }
+    .post-card {
+        width: 45%; 
+    }
+    .search-input {
+        width: 70%; 
+    }
+}
 
+@media screen and (max-width: 768px) {
+    .post-grid {
+        gap: 15px;
+    }
+    .post-card {
+        width: 100%; 
+    }
+    .search-input {
+        width: 80%; 
+    }
+}
 
-
+@media screen and (max-width: 480px) {
+    .post-grid {
+        flex-direction: column; 
+        align-items: center;
+    }
+    .post-card {
+        width: 100%; 
+    }
+    .search-input {
+        width: 90%; 
+    }
+    .search-button {
+        width: 100%; 
+    }
+}
 
