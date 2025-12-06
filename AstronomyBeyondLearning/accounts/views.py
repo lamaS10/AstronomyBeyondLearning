@@ -22,33 +22,39 @@ from django.core.paginator import Paginator
 
 def sign_in(request: HttpRequest):
 
+    next_url = request.GET.get("next", "/")  
+
     if request.method == "POST":
         form = SignInForm(request.POST)
 
-        # check form fields
         if form.is_valid():
             username = form.cleaned_data["username"]
             password = form.cleaned_data["password"]
 
-            # check auth
             user = authenticate(request, username=username, password=password)
 
             if user:
                 login(request, user)
                 messages.success(request, "Logged in successfully", "alert-success")
-                return redirect(request.GET.get("next", "/"))
+
+                next_redirect = request.POST.get("next") or request.GET.get("next") or "/"
+                return redirect(next_redirect)
+
             else:
                 messages.error(request, "Invalid username or password.", "alert-danger")
 
         else:
-            # form errors
             for error in form.errors.values():
                 messages.error(request, error)
 
     else:
         form = SignInForm()
 
-    return render(request, "accounts/signin.html", {"form": form})
+    return render(request, "accounts/signin.html", {
+        "form": form,
+        "next": next_url,   
+    })
+
 
 def sign_up(request: HttpRequest):
 
@@ -170,11 +176,13 @@ def user_profile_view(request: HttpRequest, user_name):
     })
 
 
-
 def log_out(request: HttpRequest):
-    logout(request) 
+    logout(request)
     messages.success(request, "Logged out successfully", "alert-warning")
-    return redirect(request.GET.get("next", "/")) 
+
+    next_url = request.META.get("HTTP_REFERER", "/")  
+    return redirect(next_url)
+
 
 
 

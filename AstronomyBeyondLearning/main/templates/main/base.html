@@ -80,7 +80,7 @@
 
             {% else %}
 
-            <a href="{% url 'accounts:sign_in' %}" class="glass-btn no-reveal">
+            <a href="{% url 'accounts:sign_in' %}?next={{ request.path }}" class="glass-btn no-reveal">
                 <i class="material-icons">login</i>
             </a>
 
