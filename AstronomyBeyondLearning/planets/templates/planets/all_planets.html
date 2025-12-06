@@ -28,22 +28,15 @@
 
         </select>
 
-        <button class="search-button reveal">Search</button>
+        <button class="search-button reveal">Apply</button>
     </form>
-
-
-
 
     {% for p in planets %}
     <div class="planet-card {% if forloop.first %}active{% endif %}" data-index="{{ forloop.counter0 }}">
 
-        
-
         <button class="arrow left" onclick="prevPlanet()">&#10094;</button>
         <button class="arrow right" onclick="nextPlanet()">&#10095;</button>
 
-        
-    
         <div class="planet-card-content">
             <h1>{{ p.name }}</h1>
             <a href="{% url 'planets:planet_detail' p.id %}" class="detail-btn">View Details</a>
@@ -56,12 +49,7 @@
     </div>
     {% endfor %}
 
-
-
 </div>
-
-
-
 {% endblock content %}
 {% block extra_js %}
 <script src="{% static 'js/all_planets.js' %}"></script>

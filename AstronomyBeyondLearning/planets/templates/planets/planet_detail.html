@@ -29,9 +29,15 @@
             <i class="material-icons">edit</i>
         </a>
 
-        <a href="{% url 'planets:planet_delete_view' planet.id %}" class="icon-btn delete">
-            <i class="material-icons">delete</i>
-        </a>
+  <form method="POST" action="{% url 'planets:delete_planet' planet.id %}" style="display: inline;">
+    {% csrf_token %}
+    <a href="#" class="icon-btn delete" 
+       onclick="if (confirm('Are you sure you want to delete this planet?')) { this.closest('form').submit(); }">
+        <i class="material-icons">delete</i>
+    </a>
+</form>
+
+
         {% endif %}
 
         <p class="planet-category reveal">{{ planet.get_category_display }}</p>
