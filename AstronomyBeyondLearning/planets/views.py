@@ -153,3 +153,11 @@ def planets_search_view(request):
 
 
 
+
+def delete_planet(request, planet_id):
+    try:
+        planet = Planet.objects.get(id=planet_id)
+        planet.delete()
+        return redirect('planets:planets_list')  
+    except Planet.DoesNotExist:
+        return redirect('planets:planets_list')
