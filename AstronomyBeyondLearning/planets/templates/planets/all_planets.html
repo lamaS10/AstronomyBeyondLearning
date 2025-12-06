@@ -35,7 +35,8 @@
 
 
     {% for p in planets %}
-    <div class="planet-card reveal" data-index="{{ forloop.counter0 }}">
+    <div class="planet-card {% if forloop.first %}active{% endif %}" data-index="{{ forloop.counter0 }}">
+
         
 
         <button class="arrow left" onclick="prevPlanet()">&#10094;</button>
@@ -43,12 +44,12 @@
 
         
     
-        <div class="planet-card-content reveal">
+        <div class="planet-card-content">
             <h1>{{ p.name }}</h1>
             <a href="{% url 'planets:planet_detail' p.id %}" class="detail-btn">View Details</a>
         </div>
 
-        <div class="planet-img-wrapper reveal">
+        <div class="planet-img-wrapper">
             <img src="{{ p.image.url }}" alt="{{ p.name }}">
         </div>
 
