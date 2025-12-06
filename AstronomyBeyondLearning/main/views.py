@@ -67,7 +67,7 @@ def contact_messages_view(request):
         messages.error(request, "You must be logged in to view this page.")
         return redirect("accounts:sign_in")
 
-    if not request.user.is_staff:
+    if not request.user.is_staff and not request.user.has_perm("main.view_contactmessage"):
         messages.error(request, "You do not have permission to view this page.")
         return redirect("home")
 

@@ -13,13 +13,6 @@ from django.core.paginator import Paginator
 
 
 
-
-
-
-# Create your views here.
-
-
-
 def sign_in(request: HttpRequest):
 
     next_url = request.GET.get("next", "/")  
@@ -100,6 +93,7 @@ def sign_up(request: HttpRequest):
             except Exception as e:
                 print(e)
                 messages.error(request, "Something went wrong, try again.", "alert-danger")
+                return render(request, "404.html", status=404)
 
         else:
             # show form errors
@@ -123,7 +117,7 @@ def user_profile_view(request: HttpRequest, user_name):
 
     except Exception as e:
         print("Profile error:", e)
-        return redirect("main:home")
+        return render(request, "404.html", status=404)
 
     recent_posts = (
         Post.objects.filter(author=profile_user)
@@ -185,8 +179,6 @@ def log_out(request: HttpRequest):
 
 
 
-
-
 def update_user_profile(request: HttpRequest):
 
     if not request.user.is_authenticated:
@@ -219,7 +211,7 @@ def update_user_profile(request: HttpRequest):
 
         except Exception as e:
             messages.error(request, "Couldn't update profile", "alert-danger")
-            print(e)
+            return render(request, "404.html", status=404)
 
     return render(request, "accounts/update_profile.html")
 

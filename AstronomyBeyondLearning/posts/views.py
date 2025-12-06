@@ -58,7 +58,7 @@ def create_post_view(request):
 
         except Exception as e:
             messages.error(request, f"Something went wrong: {e}")
-            return redirect("posts:create_post")
+            return render(request, "404.html", status=404)
 
     return render(request, "posts/create_post.html")
 
@@ -189,19 +189,22 @@ def delete_comment(request, comment_id):
             raise Http404("Comment not found.")
 
         user = request.user
-        is_moderator_or_staff = user.role in ['Moderator', 'Staff', 'Admin']
-        
-        if comment.user == user or is_moderator_or_staff:
+
+     
+        has_permission = (comment.user == user or user.has_perm("posts.delete_postcomment"))
+
+        if has_permission:
             post_id = comment.post.id 
-            comment.delete() 
-            messages.success(request, 'Comment deleted successfully.')
-            return redirect('posts:post_detail', post_id=post_id)
+            comment.delete()
+            messages.success(request, "Comment deleted successfully.")
+            return redirect("posts:post_detail", post_id=post_id)
 
         else:
             messages.error(request, "You do not have permission to delete this comment.")
-            return redirect('posts:post_detail', post_id=comment.post.id)
-            
+            return redirect("posts:post_detail", post_id=comment.post.id)
+
     return HttpResponseBadRequest("Invalid request method.")
+
     
     
     # Bookmark post
@@ -223,8 +226,6 @@ def post_bookmark(request, post_id):
         
     return HttpResponseBadRequest("Invalid request method. Must be POST.")
 
-
-#  سيرش بوست 
 
 def post_search_view(request):
     query = request.GET.get("search")

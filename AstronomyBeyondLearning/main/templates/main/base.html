@@ -51,7 +51,7 @@
             </a>
             {% endif %}
 
-            {% if user.is_staff %}
+            {% if user.is_staff or perms.planets.add_planet %}
             <a href="{% url 'planets:planets_add_view' %}"
                 class="{% if 'add/' in request.path and 'planets' in request.path %}active-link{% endif %} no-reveal">
                 Add planets
@@ -91,7 +91,7 @@
             {% endif %}
 
 
-            {% if user.is_staff %}
+            {% if perms.main.view_contactmessage %}
             <a href="{% url 'main:contact_messages' %}" class="glass-btn">
                 <i class="material-icons no-reveal">mail</i>
 
@@ -129,7 +129,7 @@
             </a>
             {% endif %}
 
-            {% if user.is_staff %}
+            {% if user.is_staff or perms.planets.add_planet %}
             <a href="{% url 'planets:planets_add_view' %}"
                class="{% if 'add/' in request.path and 'planets' in request.path %}active-link{% endif %}">
                Add planets
@@ -145,7 +145,7 @@
     </div>
 
 
-    {% if latest_message %}
+    {% if latest_message and perms.main.view_contactmessage %}
     <div class="new-msg-banner" id="msgBanner">
         <div class="banner-left">
             <span class="material-icons banner-icon no-reveal">mail</span>
