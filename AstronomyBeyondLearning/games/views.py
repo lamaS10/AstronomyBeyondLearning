@@ -1,69 +1,105 @@
 from django.shortcuts import render, redirect
 import random
+import json
+from pathlib import Path
 
-def all_games(request):
-    return render(request, "games/all_games.html")
+def load_questions():
+    file_path = Path(__file__).resolve().parent / "questions.json"
+    with open(file_path, "r") as f:
+        return json.load(f)
 
-def true_false_game(request):
 
-    # RESET GAME
-    if request.GET.get("reset"):
+def game(request):
+    return render(request, "games/game.html")
+
+def multiple_choice_game(request):
+
+    if request.GET.get("reset_quiz"):
+        request.session.pop("questions", None)
+        request.session.pop("score", None)
+        request.session.pop("q_index", None)
+
+        if request.GET.get("go_back"):
+            return redirect("games:game")
+
+    TOTAL = 5
+
+    if "questions" not in request.session:
+        all_q = load_questions()
+        random.shuffle(all_q)
+        request.session["questions"] = all_q[:TOTAL]
         request.session["score"] = 0
-        request.session["question_number"] = 1
+        request.session["q_index"] = 0
 
-    facts = [
-        {"statement": "Venus rotates backward compared to most planets.", "is_true": True},
-        {"statement": "Mars has five moons.", "is_true": False},
-        {"statement": "Jupiter is the largest planet in the solar system.", "is_true": True},
-        {"statement": "The Sun is a planet.", "is_true": False},
-    ]
+    questions = request.session["questions"]
+    q_index = request.session["q_index"]
+    score = request.session["score"]
 
-    # Initialize score & question count
-    if "score" not in request.session:
-        request.session["score"] = 0
-    if "question_number" not in request.session:
-        request.session["question_number"] = 1
-
-    MAX_QUESTIONS = 5
-
-    # GAME OVER
-    if request.session["question_number"] > MAX_QUESTIONS:
-        return render(request, "games/true_false.html", {
+    if request.GET.get("next"):
+        request.session["q_index"] = q_index + 1
+        return redirect("games:multiple_choice")
+    
+    if q_index >= TOTAL:
+        return render(request, "games/mc_quiz.html", {
             "game_over": True,
-            "score": request.session["score"],
-            "max": MAX_QUESTIONS
+            "score": score,
+            "total": TOTAL
         })
 
-    # Pick a random fact
-    fact = random.choice(facts)
+    current = questions[q_index]
 
-    user_answer = None
-    result = None
 
     if request.method == "POST":
+        selected = request.POST.get("answer")
+        correct = current["correct"]
 
-        # If time ended
-        if request.POST.get("time_up") == "1":
-            request.session["question_number"] += 1
-            return redirect("games:true_false")
+        # إذا الوقت انتهى وما جاوب المستخدم
+        if selected == "NONE":
+            return render(request, "games/mc_quiz.html", {
+                "question": current,
+                "feedback": True,
+                "selected": None,
+                "correct": correct,
+                "correct_text": current["options"][correct],
+                "index": q_index + 1,
+                "score": score,
+                "total": TOTAL,
+                "show_next": True,
+                "time_out": True
+            })
 
-        # If user answered
-        user_answer = request.POST.get("answer")
-        correct_answer = "true" if fact["is_true"] else "false"
-        result = (user_answer == correct_answer)
+        # إذا المستخدم جاوب فعلاً
+        if selected == correct:
+            request.session["score"] = score + 1
 
-        # update score
-        if result:
-            request.session["score"] += 1
+        return render(request, "games/mc_quiz.html", {
+            "question": current,
+            "feedback": True,
+            "selected": selected,
+            "correct": correct,
+            "correct_text": current["options"][correct],
+            "index": q_index + 1,
+            "score": request.session["score"],
+            "total": TOTAL,
+            "show_next": True
+        })
 
-        request.session["question_number"] += 1
 
-        return redirect("games:true_false")
+        return render(request, "games/mc_quiz.html", {
+            "question": current,
+            "feedback": True,
+            "selected": selected,
+            "correct": correct,
+            "correct_text": current["options"][correct],
+            "index": q_index + 1,
+            "score": request.session["score"],
+            "total": TOTAL,
+            "show_next": True
+        })
 
-    return render(request, "games/true_false.html", {
-        "fact": fact,
-        "score": request.session["score"],
-        "question_number": request.session["question_number"],
-        "max_questions": MAX_QUESTIONS,
-        "game_over": False
+    return render(request, "games/mc_quiz.html", {
+        "question": current,
+        "score": score,
+        "index": q_index + 1,
+        "total": TOTAL
     })

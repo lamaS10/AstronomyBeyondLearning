@@ -1,0 +1,657 @@
+[
+  {
+    "text": "Which planet is known as the Red Planet?",
+    "options": { "A": "Mars", "B": "Earth", "C": "Venus", "D": "Jupiter" },
+    "correct": "A"
+  },
+  {
+    "text": "Which planet is the largest in the Solar System?",
+    "options": { "A": "Earth", "B": "Jupiter", "C": "Neptune", "D": "Venus" },
+    "correct": "B"
+  },
+ 
+  {
+    "text": "Which planet has the most rings?",
+    "options": { "A": "Earth", "B": "Venus", "C": "Saturn", "D": "Mars" },
+    "correct": "C"
+  },
+  {
+    "text": "Which planet is known for its Great Red Spot?",
+    "options": { "A": "Jupiter", "B": "Neptune", "C": "Mars", "D": "Venus" },
+    "correct": "A"
+  },
+  
+  {
+    "text": "Which planet is the smallest in our solar system?",
+    "options": {
+      "A": "Mars",
+      "B": "Mercury",
+      "C": "Venus",
+      "D": "Earth"
+    },
+    "correct": "B"
+  },
+  {
+    "text": "Which planet is closest to the Sun?",
+    "options": {
+      "A": "Mercury",
+      "B": "Venus",
+      "C": "Earth",
+      "D": "Mars"
+    },
+    "correct": "A"
+  },
+  {
+    "text": "What makes Mercury appear brighter from its surface?",
+    "options": {
+      "A": "Large ice caps",
+      "B": "Bright clouds",
+      "C": "Sun appears 3x larger",
+      "D": "Volcano eruptions"
+    },
+    "correct": "C"
+  },
+  {
+    "text": "Why does Mercury have extreme temperature changes?",
+    "options": {
+      "A": "Thick atmosphere",
+      "B": "No atmosphere",
+      "C": "Strong winds",
+      "D": "Volcanic activity"
+    },
+    "correct": "B"
+  },
+  {
+    "text": "Which planet is actually the hottest?",
+    "options": {
+      "A": "Mercury",
+      "B": "Venus",
+      "C": "Mars",
+      "D": "Jupiter"
+    },
+    "correct": "B"
+  },
+  {
+    "text": "How long is one Mercury year?",
+    "options": {
+      "A": "176 Earth days",
+      "B": "365 Earth days",
+      "C": "88 Earth days",
+      "D": "59 Earth days"
+    },
+    "correct": "C"
+  },
+  {
+    "text": "How long is one Mercury daynight cycle?",
+    "options": {
+      "A": "24 hours",
+      "B": "59 Earth days",
+      "C": "88 Earth days",
+      "D": "176 Earth days"
+    },
+    "correct": "D"
+  },
+  {
+    "text": "What is Mercury surface mostly covered with?",
+    "options": {
+      "A": "Water oceans",
+      "B": "Craters",
+      "C": "Lava lakes",
+      "D": "Forests"
+    },
+    "correct": "B"
+  },
+  {
+    "text": "Mercury orbit is described as:",
+    "options": {
+      "A": "Perfectly circular",
+      "B": "Highly eccentric",
+      "C": "Square-shaped",
+      "D": "Tilted 45 degrees"
+    },
+    "correct": "B"
+  },
+  {
+    "text": "Does Mercury have moons?",
+    "options": {
+      "A": "Yes, one moon",
+      "B": "Yes, two moons",
+      "C": "No moons",
+      "D": "Only artificial satellites"
+    },
+    "correct": "C"
+  },
+  {
+    "text": "Does Mercury have rings?",
+    "options": {
+      "A": "Yes",
+      "B": "No"
+    },
+    "correct": "B"
+  },
+  {
+    "text": "Mercury exosphere is made mostly of:",
+    "options": {
+      "A": "Carbon dioxide",
+      "B": "Nitrogen",
+      "C": "Oxygen and sodium",
+      "D": "Methane"
+    },
+    "correct": "C"
+  },
+  {
+    "text": "What is Mercury interior mainly composed of?",
+    "options": {
+      "A": "Ice",
+      "B": "Gas",
+      "C": "Metallic core",
+      "D": "Liquid water"
+    },
+    "correct": "C"
+  },
+
+  {
+    "text": "What causes the bright crater rays on Mercury?",
+    "options": {
+      "A": "Frozen gas",
+      "B": "Sunlight reflection",
+      "C": "Crushed rock thrown out by impacts",
+      "D": "Volcano eruptions"
+    },
+    "correct": "C"
+  },
+  {
+    "text": "What is Mercury named after?",
+    "options": {
+      "A": "A Greek warrior",
+      "B": "The Roman messenger god",
+      "C": "A famous astronomer",
+      "D": "A mythical creature"
+    },
+    "correct": "B"
+  },
+  
+  {
+    "text": "Mercury temperatures can reach how hot during the day?",
+    "options": {
+      "A": "100°C",
+      "B": "430°C",
+      "C": "900°C",
+      "D": "50°C"
+    },
+    "correct": "B"
+  },
+  {
+    "text": "Mercury night time temperatures can drop to:",
+    "options": {
+      "A": "-50°C",
+      "B": "-100°C",
+      "C": "-180°C",
+      "D": "-20°C"
+    },
+    "correct": "C"
+  },
+
+  {
+    "text": "Which planet is the only one known to support life?",
+    "options": {
+      "A": "Mars",
+      "B": "Earth",
+      "C": "Venus",
+      "D": "Jupiter"
+    },
+    "correct": "B"
+  },
+  {
+    "text": "Earth atmosphere is mostly made of:",
+    "options": {
+      "A": "Carbon dioxide",
+      "B": "Hydrogen",
+      "C": "Nitrogen",
+      "D": "Oxygen"
+    },
+    "correct": "C"
+  },
+  {
+    "text": "How long does Earth take to rotate once?",
+    "options": {
+      "A": "12 hours",
+      "B": "23.9 hours",
+      "C": "48 hours",
+      "D": "100 hours"
+    },
+    "correct": "B"
+  },
+  {
+    "text": "How much of Earth is covered by oceans?",
+    "options": {
+      "A": "10%",
+      "B": "30%",
+      "C": "71%",
+      "D": "90%"
+    },
+    "correct": "C"
+  },
+  {
+    "text": "How long does Earth take to orbit the Sun?",
+    "options": {
+      "A": "24 hours",
+      "B": "30 days",
+      "C": "365.25 days",
+      "D": "700 days"
+    },
+    "correct": "C"
+  },
+  {
+    "text": "What protects Earth from harmful solar radiation?",
+    "options": {
+      "A": "Oceans",
+      "B": "Clouds",
+      "C": "Atmosphere and magnetic field",
+      "D": "Mountains"
+    },
+    "correct": "C"
+  },
+  {
+    "text": "Earth core is mainly made of:",
+    "options": {
+      "A": "Rock",
+      "B": "Ice",
+      "C": "Iron and nickel",
+      "D": "Gas"
+    },
+    "correct": "C"
+  },
+  {
+    "text": "Which gas in Earth atmosphere is most abundant?",
+    "options": {
+      "A": "Oxygen",
+      "B": "Nitrogen",
+      "C": "Carbon dioxide",
+      "D": "Argon"
+    },
+    "correct": "B"
+  },
+  {
+    "text": "How long does sunlight take to reach Earth?",
+    "options": {
+      "A": "1 minute",
+      "B": "8 minutes",
+      "C": "30 minutes",
+      "D": "1 hour"
+    },
+    "correct": "B"
+  },
+  
+  {
+    "text": "Earth formed about:",
+    "options": {
+      "A": "500 million years ago",
+      "B": "1 billion years ago",
+      "C": "4.5 billion years ago",
+      "D": "10 billion years ago"
+    },
+    "correct": "C"
+  },
+  {
+    "text": "Which planet is the brightest object in the night sky after the Moon?",
+    "options": {
+      "A": "Mars",
+      "B": "Venus",
+      "C": "Jupiter",
+      "D": "Mercury"
+    },
+    "correct": "B"
+  },
+  {
+    "text": "Earth is the planet from the Sun.",
+    "options": {
+      "A": "First",
+      "B": "Second",
+      "C": "Third",
+      "D": "Fourth"
+    },
+    "correct": "C"
+  },
+
+  {
+    "text": "Why does Uranus appear blue green?",
+    "options": {
+      "A": "Because of frozen oceans",
+      "B": "Because of methane absorbing red light",
+      "C": "Because it reflects the Sun blue rays only",
+      "D": "Because it has blue dust storms"
+    },
+    "correct": "B"
+  },
+  {
+    "text": "What makes Uranus rotate sideways?",
+    "options": {
+      "A": "It has a weak magnetic field",
+      "B": "A collision with an Earth-sized object long ago",
+      "C": "It rotates faster than Jupiter",
+      "D": "Its rings tilt the planet"
+    },
+    "correct": "B"
+  },
+  {
+    "text": "Why are Uranus seasons extremely long?",
+    "options": {
+      "A": "Its orbit is very close to the Sun",
+      "B": "Its axis is tilted by 97 degrees",
+      "C": "It spins extremely fast",
+      "D": "Its moons block sunlight"
+    },
+    "correct": "B"
+  },
+  {
+    "text": "Why can't spacecraft land on Uranus?",
+    "options": {
+      "A": "It has too many volcanoes",
+      "B": "Its surface is made entirely of lava",
+      "C": "It has no solid surface—only thick swirling fluids",
+      "D": "The rings prevent landing"
+    },
+    "correct": "C"
+  },
+  {
+    "text": "Why is Neptune considered an ice giant?",
+    "options": {
+      "A": "It is made mostly of rocky material",
+      "B": "It is covered entirely by frozen oceans",
+      "C": "It contains hot dense fluids of water, methane, and ammonia ices",
+      "D": "It has the coldest moon in the solar system"
+    },
+    "correct": "C"
+  },
+  {
+    "text": "Why does Neptune appear blue?",
+    "options": {
+      "A": "Because of water oceans on its surface",
+      "B": "Because methane absorbs red light and reflects blue",
+      "C": "Because of ice storms in its clouds",
+      "D": "Because Neptune has a blue rocky crust"
+    },
+    "correct": "B"
+  },
+  {
+    "text": "What makes Neptune the windiest planet in the solar system?",
+    "options": {
+      "A": "Its strong magnetic field and deep atmosphere",
+      "B": "Its extremely fast rotation",
+      "C": "Its thick rocky crust",
+      "D": "Its strong volcanic activity"
+    },
+    "correct": "A"
+  },
+  {
+    "text": "Why does Triton orbit Neptune in the opposite direction of the planet rotation?",
+    "options": {
+      "A": "It formed with Neptune",
+      "B": "It was captured by Neptune's gravity long ago",
+      "C": "It collided with another moon",
+      "D": "It is made of heavier elements"
+    },
+    "correct": "B"
+  },
+  {
+    "text": "What makes Neptune rings unusual compared to other planets?",
+    "options": {
+      "A": "They are made only of gas",
+      "B": "They glow brightly from methane",
+      "C": "Dust clumps stay grouped into arcs instead of spreading out",
+      "D": "They are the widest rings in the solar system"
+    },
+    "correct": "C"
+  },
+  {
+    "text": "Why was Pluto reclassified as a dwarf planet in 2006?",
+    "options": {
+      "A": "It is smaller than Earth Moon",
+      "B": "It does not orbit the Sun",
+      "C": "It has not cleared its orbital path of other objects",
+      "D": "It has too many moons"
+    },
+    "correct": "C"
+  },
+  {
+    "text": "What makes Pluto appear reddish?",
+    "options": {
+      "A": "Volcano dust",
+      "B": "Nitrogen oceans",
+      "C": "Methane ice reacting with sunlight",
+      "D": "Iron oxide soil like Mars"
+    },
+    "correct": "C"
+  },
+  {
+    "text": "Why are Pluto and Charon sometimes called a double planet?",
+    "options": {
+      "A": "They share the same atmosphere",
+      "B": "They orbit each other instead of one orbiting the other",
+      "C": "Charon is nearly half the size of Pluto",
+      "D": "They have identical compositions"
+    },
+    "correct": "C"
+  },
+  {
+    "text": "What happens to Pluto thin atmosphere when it moves far from the Sun?",
+    "options": {
+      "A": "It expands into space",
+      "B": "It collapses and freezes onto the surface",
+      "C": "It becomes thicker",
+      "D": "It forms clouds of liquid nitrogen"
+    },
+    "correct": "B"
+  },
+  {
+    "text": "Why is it unlikely for life to exist on Pluto surface?",
+    "options": {
+      "A": "Pluto rotates too fast",
+      "B": "Temperatures are too extreme and water is rock-like",
+      "C": "It has too many volcanoes",
+      "D": "Its atmosphere contains oxygen"
+    },
+    "correct": "B"
+  },
+  {
+    "text": "Why is Venus the hottest planet in the solar system?",
+    "options": {
+      "A": "Because it's closest to the Sun",
+      "B": "Because of a runaway greenhouse effect",
+      "C": "Because it rotates quickly",
+      "D": "Because it has no atmosphere"
+    },
+    "correct": "B"
+  },
+  {
+    "text": "What is Venus often called?",
+    "options": {
+      "A": "Earth evil twin",
+      "B": "The Red Planet",
+      "C": "The Gas Giant",
+      "D": "The Morning Star only"
+    },
+    "correct": "A"
+  },
+  {
+    "text": "What is Venus atmosphere mostly made of?",
+    "options": {
+      "A": "Nitrogen",
+      "B": "Oxygen",
+      "C": "Carbon dioxide",
+      "D": "Methane"
+    },
+    "correct": "C"
+  },
+  {
+    "text": "Does Venus have any moons?",
+    "options": {
+      "A": "Yes, 1",
+      "B": "Yes, 2",
+      "C": "Many",
+      "D": "No"
+    },
+    "correct": "D"
+  },
+  {
+    "text": "What makes Venus appear bright in the sky?",
+    "options": {
+      "A": "Its icy surface",
+      "B": "Its thick reflective clouds",
+      "C": "Its fast rotation",
+      "D": "Its large rings"
+    },
+    "correct": "B"
+  },
+  {
+    "text": "Why is Mars called the Red Planet?",
+    "options": {
+      "A": "Because it is hot like fire",
+      "B": "Because of iron oxide (rust) in its soil",
+      "C": "Because it has red oceans",
+      "D": "Because of volcano eruptions"
+    },
+    "correct": "B"
+  },
+  {
+    "text": "What is a Martian day called?",
+    "options": {
+      "A": "Sol",
+      "B": "Cycle",
+      "C": "Red Day",
+      "D": "Orbit"
+    },
+    "correct": "A"
+  },
+  {
+    "text": "Mars once had:",
+    "options": {
+      "A": "Thick oceans",
+      "B": "A strong magnetic field",
+      "C": "A thicker atmosphere",
+      "D": "All of the above"
+    },
+    "correct": "D"
+  },
+  {
+    "text": "How many moons does Mars have?",
+    "options": {
+      "A": "0",
+      "B": "1",
+      "C": "2",
+      "D": "5"
+    },
+    "correct": "C"
+  },
+  {
+    "text": "What is the largest volcano in the solar system located on Mars?",
+    "options": {
+      "A": "Mauna Kea",
+      "B": "Mount Everest",
+      "C": "Olympus Mons",
+      "D": "Valles Marineris"
+    },
+    "correct": "C"
+  },
+  {
+    "text": "Mars' atmosphere is:",
+    "options": {
+      "A": "Thick and rich in oxygen",
+      "B": "Thin and mostly carbon dioxide",
+      "C": "Full of hydrogen",
+      "D": "Similar to Earth"
+    },
+    "correct": "B"
+  },
+  {
+    "text": "What type of planet is Jupiter?",
+    "options": {
+      "A": "Terrestrial planet",
+      "B": "Dwarf planet",
+      "C": "Gas giant",
+      "D": "Ice planet"
+    },
+    "correct": "C"
+  },
+  {
+    "text": "What is the Great Red Spot?",
+    "options": {
+      "A": "A giant storm",
+      "B": "A volcano",
+      "C": "A crater",
+      "D": "A moon"
+    },
+    "correct": "A"
+  },
+  {
+    "text": "Jupiter has how many moons?",
+    "options": {
+      "A": "4",
+      "B": "95",
+      "C": "1",
+      "D": "12"
+    },
+    "correct": "B"
+  },
+  {
+    "text": "What are Jupiter stripes made of?",
+    "options": {
+      "A": "Rivers",
+      "B": "Cloud bands",
+      "C": "Sand dunes",
+      "D": "Ice cracks"
+    },
+    "correct": "B"
+  },
+  {
+    "text": "What is Jupiter mostly made of?",
+    "options": {
+      "A": "Rock",
+      "B": "Hydrogen and helium",
+      "C": "Iron",
+      "D": "Carbon dioxide"
+    },
+    "correct": "B"
+  },
+  {
+    "text": "What is Saturn best known for?",
+    "options": {
+      "A": "Its mountains",
+      "B": "Its rings",
+      "C": "Its oceans",
+      "D": "Its volcanos"
+    },
+    "correct": "B"
+  },
+  {
+    "text": "What type of planet is Saturn?",
+    "options": {
+      "A": "Gas giant",
+      "B": "Dwarf planet",
+      "C": "Rocky planet",
+      "D": "Ice planet"
+    },
+    "correct": "A"
+  },
+  {
+    "text": "What are Saturn rings made of?",
+    "options": {
+      "A": "Fire",
+      "B": "Ice and rock chunks",
+      "C": "Liquid metal",
+      "D": "Carbon clouds"
+    },
+    "correct": "B"
+  },
+  {
+    "text": "Saturn has how many moons?",
+    "options": {
+      "A": "2",
+      "B": "25",
+      "C": "146",
+      "D": "500"
+    },
+    "correct": "C"
+  }
+]

@@ -1,0 +1,147 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/mc_quiz.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+<img src="{% static 'images/background-space.jpg' %}" class="stars-bg">
+<div class="quiz-wrapper">
+
+    {% if error %}
+        <div class="quiz-card">
+            <h2 class="quiz-title">Space Quiz – Error</h2>
+            <p class="error-text">{{ error }}</p>
+            <a href="{% url 'games:multiple_choice' %}?reset=1" class="primary-btn">
+                Try Again
+            </a>
+        </div>
+
+    {% elif game_over %}
+        <div class="quiz-card">
+            <h2 class="quiz-title">Game Over 🚀</h2>
+            
+            <p class="final-score">Your Score: {{ score }} / {{ total }}</p>
+
+            <a href="{% url 'games:multiple_choice' %}?reset_quiz=1&go_back=1" class="primary-btn">
+                Done
+            </a>
+
+            
+        </div>
+
+    {% else %}
+
+        <div class="quiz-card">
+
+            <h2 class="quiz-title">Space Quiz – Solar System</h2>
+
+            <div class="quiz-meta">
+                <span>Question {{ index }} / {{ total }}</span>
+                <span>Score: {{ score }}</span>
+            </div>
+
+            <p class="question-text">
+                {{ question.text }}
+            </p>
+
+            {% if feedback %}
+               
+                <div class="options-list">
+                    {% for letter, text in question.options.items %}
+                        {% if letter == correct %}
+                            <div class="option-btn correct">
+                                <span class="letter">{{ letter }}.</span>
+                                <span class="opt-text">{{ text }}</span>
+                            </div>
+                        {% elif letter == selected %}
+                            <div class="option-btn wrong">
+                                <span class="letter">{{ letter }}.</span>
+                                <span class="opt-text">{{ text }}</span>
+                            </div>
+                        {% else %}
+                            <div class="option-btn disabled">
+                                <span class="letter">{{ letter }}.</span>
+                                <span class="opt-text">{{ text }}</span>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+                <div class="feedback-msg">
+                    {% if selected == correct %}
+                        <p class="correct-msg">Correct! 🎉</p>
+                    {% else %}
+                        <p class="wrong-msg">Wrong ❌</p>
+                        <p class="correct-answer">
+                            Correct Answer: {{ correct }} – {{ correct_text }}
+                        </p>
+                    {% endif %}
+                </div>
+
+                {% if show_next %}
+                <a href="{% url 'games:multiple_choice' %}?next=1" class="next-btn">
+                    Next Question
+                </a>
+                {% endif %}
+
+
+            {% else %}
+
+                <!-- TIMER -->
+                <div class="timer-box">
+                    Time Left: <span id="timer">10</span> sec
+                </div>
+
+                <!-- AUTO SUBMIT FORM WHEN TIME ENDS -->
+                <form id="autoNextForm" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="answer" value="NONE">
+                </form>
+
+                <!-- MAIN OPTIONS FORM -->
+                <form method="POST" class="options-form">
+                    {% csrf_token %}
+                    {% for letter, text in question.options.items %}
+                        <button type="submit"
+                                name="answer"
+                                value="{{ letter }}"
+                                class="option-btn">
+                            <span class="letter">{{ letter }}.</span>
+                            <span class="opt-text">{{ text }}</span>
+                        </button>
+                    {% endfor %}
+                </form>
+
+            {% endif %}
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock content %}
+{% block extra_js %}
+<script src="{% static 'js/mc_timer.js' %}"></script>
+
+{% if feedback %}
+<script>
+    let correctSound = new Audio("/static/sounds/correct.mp3");
+    let wrongSound = new Audio("/static/sounds/wrong.wav");
+
+    // نرسل المتغيرات من Django إلى JS
+    let selected = "{{ selected }}";
+    let correct = "{{ correct }}";
+
+    if (selected === correct) {
+        correctSound.play();
+    } else {
+        wrongSound.play();
+    }
+</script>
+{% endif %}
+
+{% endblock extra_js %}
+

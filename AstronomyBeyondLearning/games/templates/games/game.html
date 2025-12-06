@@ -1,12 +1,11 @@
 {% extends "main/base.html" %}
 {% load static %}
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/all_games.css' %}">
+<link rel="stylesheet" href="{% static 'css/game.css' %}">
 {% endblock extra_css %}
 
 {% block content %}
 
-<!-- HERO SECTION -->
 <div class="hero">
     <video autoplay muted loop playsinline class="hero-video">
         <source src="{% static 'videos/hero_games.mp4' %}" type="video/mp4">
@@ -17,14 +16,14 @@
     <div class="hero-content">
         <h1>Learn the Universe Through Play</h1>
         <p>Explore interactive space games designed to boost your knowledge.</p>
-        <a href="#game-list" class="hero-btn">Start Playing</a>
+        <a href="{% url 'games:multiple_choice' %}" class="hero-btn">
+            Start Playing
+        </a>
+
     </div>
 </div>
 
-
-<!-- GAME CARDS SECTION -->
 <div id="game-list" class="games-grid">
-    <!-- هنا كاردات الألعاب مثل ما سويتي -->
 </div>
 
 {% endblock %}

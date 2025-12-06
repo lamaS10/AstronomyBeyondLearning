@@ -57,6 +57,11 @@
                 Add planets
             </a>
             {% endif %}
+            <a href="{% url 'games:game' %}"
+                class="{% if 'games' in request.path %}active-link{% endif %} no-reveal">
+                Games
+            </a>
+
         </div>
 
 
@@ -130,6 +135,11 @@
                Add planets
             </a>
             {% endif %}
+
+            <a href="{% url 'games:game' %}"
+                class="{% if 'games' in request.path %}active-link{% endif %} no-reveal">
+                Games
+            </a>
 
         </div>
     </div>
