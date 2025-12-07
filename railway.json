@@ -4,6 +4,6 @@
     "builder": "NIXPACKS"
   },
   "deploy": {
-    "startCommand": "python manage.py migrate && python manage.py collectstatic --noinput && gunicorn AstronomyBeyondLearning.wsgi:application"
+    "startCommand": "cd AstronomyBeyondLearning && python manage.py migrate && python manage.py collectstatic --noinput && gunicorn AstronomyBeyondLearning.wsgi:application"
   }
 }
