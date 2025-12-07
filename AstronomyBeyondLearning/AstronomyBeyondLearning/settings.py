@@ -31,6 +31,8 @@ SECRET_KEY = 'django-insecure-w4rsf9s@y7x$&0m%o_5dg6#_abi*qq+b-9zdn@a=erxmmk0i+*
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
+CSRF_TRUSTED_ORIGINS = ["astronomybeyondlearning-production.up.railway.app", "http://127.0.0.1"]
+
 
 
 
