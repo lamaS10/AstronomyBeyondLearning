@@ -83,7 +83,7 @@ Astronomy Beyond Learning (ABL) creates an interactive and community-focused env
 - View and edit profile.
 - View quiz game results inside the profile.
 
-## Editor (Staff)
+## Editor
 - Add, edit, and delete planets.
 - Manage planet categories.
 - Cannot edit or delete posts.
