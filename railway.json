@@ -4,6 +4,6 @@
     "builder": "NIXPACKS"
   },
   "deploy": {
-    "startCommand": "cd AstronomyBeyondLearning && python manage.py migrate && python manage.py collectstatic --noinput &&  paython manage.py loaddata initial_data.json && gunicorn AstronomyBeyondLearning.wsgi:application"
+    "startCommand": "cd AstronomyBeyondLearning && python manage.py migrate &&  paython manage.py loaddata initial_data.json &&  paython manage.py loaddata initial_data.json && gunicorn AstronomyBeyondLearning.wsgi:application"
   }
 }
