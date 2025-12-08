@@ -1,0 +1,32 @@
+[
+{
+  "model": "accounts.userprofile",
+  "pk": 1,
+  "fields": {
+    "user": 1,
+    "bio": "",
+    "profile_picture": "accounts/profile_pictures/images_1_lmhXxup.jpg",
+    "website": "https://github.com/lamaS10"
+  }
+},
+{
+  "model": "accounts.userprofile",
+  "pk": 2,
+  "fields": {
+    "user": 2,
+    "bio": "",
+    "profile_picture": "accounts/profile_pictures/sara.avif",
+    "website": ""
+  }
+},
+{
+  "model": "accounts.userprofile",
+  "pk": 3,
+  "fields": {
+    "user": 3,
+    "bio": "",
+    "profile_picture": "",
+    "website": ""
+  }
+}
+]

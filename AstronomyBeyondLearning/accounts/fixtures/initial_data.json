@@ -1,32 +1,60 @@
 [
 {
-  "model": "accounts.userprofile",
+  "model": "auth.user",
   "pk": 1,
   "fields": {
-    "user": 1,
-    "bio": "",
-    "profile_picture": "accounts/profile_pictures/images_1_lmhXxup.jpg",
-    "website": "https://github.com/lamaS10"
+    "password": "pbkdf2_sha256$1000000$GNfj9KLznKZ8FGoWGz6Ttp$9bbbjxiwPQPnOzlCDu2nwN7FTDOozQ4Uwiwqok3prjQ=",
+    "last_login": "2025-12-07T18:10:42.728Z",
+    "is_superuser": false,
+    "username": "lama",
+    "first_name": "Lama",
+    "last_name": "Alharbi",
+    "email": "leema442@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-01T17:10:18Z",
+    "groups": [
+      2
+    ],
+    "user_permissions": []
   }
 },
 {
-  "model": "accounts.userprofile",
+  "model": "auth.user",
   "pk": 2,
   "fields": {
-    "user": 2,
-    "bio": "",
-    "profile_picture": "accounts/profile_pictures/sara.avif",
-    "website": ""
+    "password": "pbkdf2_sha256$1000000$CpXPN2d2xnZJRQU4spXfuC$LdT9j0RjHNe3xu+wGnVOhUnKT+0Zd//t4/3S4rdtA7M=",
+    "last_login": "2025-12-07T18:44:51.231Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "admin@gmail.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2025-12-03T19:56:54.492Z",
+    "groups": [],
+    "user_permissions": []
   }
 },
 {
-  "model": "accounts.userprofile",
+  "model": "auth.user",
   "pk": 3,
   "fields": {
-    "user": 3,
-    "bio": "",
-    "profile_picture": "",
-    "website": ""
+    "password": "pbkdf2_sha256$1000000$saQWFUVd1awWeteCNQu88a$XPkryMqw4omoZmOlORvBNMP6kThvM6XWJXSutdeSHw4=",
+    "last_login": "2025-12-07T18:45:34.505Z",
+    "is_superuser": false,
+    "username": "abrar",
+    "first_name": "abrar",
+    "last_name": "gh",
+    "email": "abrar@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-05T16:05:38Z",
+    "groups": [
+      1
+    ],
+    "user_permissions": []
   }
 }
 ]
