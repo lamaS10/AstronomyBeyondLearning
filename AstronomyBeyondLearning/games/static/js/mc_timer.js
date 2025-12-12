@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let countdownSound = new Audio("/static/sounds/countdown.wav");
     countdownSound.preload = "auto"; 
 
-    let timeLeft = 10;
+    let timeLeft = 30;
 
     let countdown = setInterval(() => {
         timeLeft--;
