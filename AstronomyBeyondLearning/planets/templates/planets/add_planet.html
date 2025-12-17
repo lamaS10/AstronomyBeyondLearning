@@ -9,7 +9,7 @@
 
 {% block content %}
 
-{% if user.is_staff %}
+{% if user.is_staff or perms.planets.add_planet %}
 
 <div class="auth-card">
 

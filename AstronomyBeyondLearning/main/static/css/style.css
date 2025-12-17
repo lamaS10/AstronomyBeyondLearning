@@ -800,6 +800,9 @@ main {
 .menu-toggle {
     display: none !important;
 }
+.new-msg-banner {
+    z-index: 1000000 !important;
+}
 
 
 /*  respocive navebar*/

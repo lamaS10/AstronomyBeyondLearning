@@ -59,6 +59,12 @@
                     <p class="field-error">{{ error }}</p>
                 {% endfor %}
             </div>
+            <div style="text-align: right; margin-bottom: 10px;">
+                <a href="{% url 'accounts:reset_password' %}" style="color:#4b7bec; font-size:14px;">
+                    Forgot Password?
+                </a>
+            </div>
+
 
             <button type="submit" class="primary-btn">Sign In</button>
         </form>

@@ -8,8 +8,9 @@ from .forms import PlanetEditForm
 
 def planets_add_view(request):
 
-    if not request.user.is_staff:
-        messages.warning(request, "Only staff can add planets", "alert-warning")
+    if not (request.user.is_staff or request.user.has_perm("planets.add_planet")):
+
+        messages.warning(request, "You are not allowed to add planets", "alert-warning")
         return redirect("main:home")
 
     if request.method == "POST":
@@ -38,7 +39,8 @@ def planet_detail_view(request, planet_id):
         planet = Planet.objects.get(id=planet_id)
     except Planet.DoesNotExist:
         messages.error(request, "Planet does not exist", "alert-danger")
-        return redirect("planets:planets_list")
+        return render(request, "404.html", status=404)
+        
     
     is_bookmarked = False
     if request.user.is_authenticated:
@@ -63,8 +65,8 @@ def planet_detail_view(request, planet_id):
 
 def planet_delete_view(request, planet_id):
 
-    if not request.user.is_staff:
-        messages.warning(request, "Only staff can delete planets", "alert-warning")
+    if not (request.user.is_staff or request.user.has_perm("planets.delete_planet")):
+        messages.warning(request, "You are not allowed to delete planets", "alert-warning")
         return redirect("main:home")
 
     try:
@@ -73,14 +75,14 @@ def planet_delete_view(request, planet_id):
         messages.success(request, "Planet deleted successfully", "alert-success")
     except:
         messages.error(request, "Couldn't delete planet", "alert-danger")
+        return render(request, "404.html", status=404)
 
     return redirect("planets:planets_list")
 
-
 def planet_update_view(request, planet_id):
 
-    if not request.user.is_staff:
-        messages.warning(request, "Only staff can update planets", "alert-warning")
+    if not (request.user.is_staff or request.user.has_perm("planets.change_planet")):
+        messages.warning(request, "You are not allowed to edit planets", "alert-warning")
         return redirect("main:home")
 
     planet = Planet.objects.get(id=planet_id)

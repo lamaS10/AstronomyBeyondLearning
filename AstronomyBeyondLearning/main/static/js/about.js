@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     let title = "About Us";
-    let desc = "ABL Galaxy is a modern and immersive experience designed to let you explore the Solar System like never before — with planets, verses, interactive posts, quizzes, and intelligent suggestions.";
+    let desc = "ABL Galaxy is a modern and immersive platform designed to let you explore the Solar System like never before — with planets, interactive posts, educational content, and a gamified learning experience. Our goal is to transform space learning into a dynamic journey where users can explore, play, and grow their knowledge through engaging activities.";
 
     let titleEl = document.getElementById("typing-title");
     let descEl = document.getElementById("typing-desc");

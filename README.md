@@ -1,85 +1,214 @@
-#  Astronomy Beyond Learning (ABL)
+# Astronomy Beyond Learning (ABL)
 
-##  Project Description
-**Astronomy Beyond Learning (ABL)** is an interactive astronomy platform that allows users to explore planets, view Quranic verses related to the universe, share posts, interact socially, and test their knowledge through a quiz.  
-The platform combines scientific exploration with educational engagement, making learning about space enjoyable and meaningful.
+## Project Description
+Astronomy Beyond Learning (ABL) is an interactive astronomy platform designed for anyone interested in exploring space through a modern and engaging experience. The platform combines scientific information about planets, social interaction through posts and comments, and a quiz-based learning game. ABL aims to make space exploration enjoyable, accessible, and enriched with meaningful community participation.
 
 ---
 
-##  Features List
+## Problem Statement
+Most astronomy platforms present static information without real interaction or community involvement. People interested in space often cannot find a platform that blends scientific knowledge with social engagement and interactive learning.
 
-###  Planet Features
-- Planet details including category, description, image, and number of moons.
-- Bookmark planets.
+## Solution
+Astronomy Beyond Learning (ABL) creates an interactive and community-focused environment where users can explore planets, share posts, interact through comments, and improve their knowledge through a quiz-based game. The platform enhances the learning experience by encouraging participation and connecting users through their shared interest in space, supported by a structured role-based moderation system.
 
-###  Post Features
-- Create posts with image/video + text.
-- Edit and delete own posts.
-- Like other users’ posts.
+---
+
+# Features
+
+## Planet Features
+- View all planets with detailed scientific information.
+- Planet attributes include category, description, distance, radius, gravity, temperature, atmosphere, and number of moons.
+- Bookmark planets for quick access.
+- Responsive and visually rich planet detail pages.
+
+## Post Features
+- Create posts containing **image and text only**.
+- Edit and delete the user’s own posts only.
+- Like posts created by other users.
 - Bookmark posts.
 - Comment on posts.
-- Edit/delete own comments.
+- Edit or delete the user’s own comments.
 
-###  User Profile
-- View and edit user profile.
-- View bookmarks.
-- View user comments.
+## User Profile Features
+- View and edit personal profile information.
+- Upload a profile picture.
+- View the user’s own posts, likes, bookmarks, and comments.
+- View quiz game results including best score, last score, and attempts.
 
-###  Additional Pages
-- About Us page.
-
-###  Role-Based Permissions
-- User
-- Editors (Staff)
-- Moderators
-- Admin
-
-
-
-#  User Stories
-
-## Normal User (User)
-The user is able to:
-- Create an account, log in, and log out.
-- Browse the homepage.
-- View all planets.
-- View the details of any planet,  add it to bookmarks.
-- Create a new post (image/video + text).
-- Edit and delete their own posts only.
-- Like other users’ posts.
-- Save posts to bookmarks.
-- Write comments on posts.
-- Edit or delete their own comments on posts.
-- View and edit their profile.
-- View all their likes, bookmarks, and comments.
+## Game Features
+- Astronomy quiz game.
+- Tracks each user's best score, last score, and number of attempts.
+- Results displayed in the user's profile page.
 
 ---
 
-##  Editors (Staff)
-Editors are able to:
-- Add a new planet.
-- Edit any planet’s data.
-- Delete any planet.
-- View all user posts.
-- Edit or delete any post.
+# Role-Based Permissions
+
+## User
+- Has access to all normal features such as creating posts, liking posts, bookmarking content, commenting, and editing their profile.
+
+## Editor (Staff)
+- Add new planets.
+- Edit existing planets.
+- Delete planets.
 - Manage planet categories.
-- View "Contact Us" messages.
+- **Cannot** edit or delete posts.
+- **Cannot** view Contact Us messages.
 
----
-
-##  Moderators
-Moderators are able to:
+## Moderator
 - View all comments on the website.
-- Delete inappropriate or harmful comments.
+- Delete harmful or inappropriate comments.
+- View Contact Us messages.
+- **Cannot** manage posts or planets.
+
+## Admin
+- Manage all users and assign roles.
+- Manage all content across the platform.
+- View all Contact Us messages.
+- Full administrative access.
 
 ---
 
-##  Admin
-The admin is able to:
-- Manage all users.
-- Assign permissions (User → Staff → Moderator).
-- Manage all website content.
-- View all “Contact Us” messages.
+# User Stories
 
----
+## Normal User
+- Create an account, log in, and log out.
+- Browse the homepage and view all planets.
+- View planet details and bookmark planets.
+- Create posts with image and text.
+- Edit and delete their own posts only.
+- Like and bookmark posts.
+- Write comments on posts.
+- Edit or delete their own comments.
+- View and edit profile.
+- View quiz game results inside the profile.
 
+## Editor
+- Add, edit, and delete planets.
+- Manage planet categories.
+- Cannot edit or delete posts.
+- Cannot view Contact Us messages.
+
+## Moderator
+- View all comments.
+- Delete inappropriate comments.
+- View Contact Us messages.
+- Cannot edit posts or manage planets.
+
+## Admin
+- Manage all users and roles.
+- Manage planetary and post content.
+- View all Contact Us messages.
+- Full access to Django admin.
+
+
+
+```mermaid
+classDiagram
+
+    %% USERS
+    class User {
+        +id
+        +username
+        +email
+        +password
+    }
+
+    class UserProfile {
+        +id
+        +bio
+        +profile_picture
+        +website
+    }
+
+    User --> UserProfile : One-to-One
+
+
+    %% PLANETS
+    class Planet {
+        +id
+        +name
+        +description
+        +distance_from_sun
+        +radius
+        +gravity
+        +day_length
+        +atmosphere
+        +temperature
+        +category
+        +moons
+    }
+
+    class BookmarkPlanet {
+        +id
+    }
+
+    User --> BookmarkPlanet : One-to-Many
+    Planet --> BookmarkPlanet : One-to-Many
+
+
+    %% POSTS
+    class Post {
+        +id
+        +image
+        +text
+        +created_at
+        +updated_at
+    }
+
+    class PostLike {
+        +id
+    }
+
+    class PostBookmark {
+        +id
+    }
+
+    class Comment {
+        +id
+        +text
+        +created_at
+        +updated_at
+    }
+
+    User --> Post : One-to-Many
+    Post --> PostLike : One-to-Many
+    User --> PostLike : One-to-Many
+
+    Post --> PostBookmark : One-to-Many
+    User --> PostBookmark : One-to-Many
+
+    Post --> Comment : One-to-Many
+    User --> Comment : One-to-Many
+
+
+    %% QUIZ SYSTEM
+    class QuizProgress {
+        +id
+        +attempts
+        +best_score
+        +last_score
+        +last_played
+    }
+
+    User --> QuizProgress : One-to-One
+
+
+    %% CONTACT US
+    class ContactMessage {
+        +id
+        +first_name
+        +last_name
+        +email
+        +phone
+        +message
+        +created_at
+        +accepted_terms
+    }
+```
+
+
+## Wireframes
+
+### Pages Overview
+![Wireframes](wireframes/wireframe.jpg)
