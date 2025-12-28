@@ -2,7 +2,7 @@ from django.shortcuts import render , redirect
 from .models import ContactMessage
 from django.contrib import messages
 from django.core.paginator import Paginator
-from django.core.mail import send_mail
+from main.mailer import send_email
 from django.conf import settings
 from planets.models import Planet
 
@@ -35,19 +35,20 @@ def home(request):
             accepted_terms=True
         )
 
-        send_mail(
+        html_content = f"""
+        <h2>Hello {first_name},</h2>
+        <p>Thank you for contacting us!</p>
+        <p>We have received your message and our team will reply soon.</p>
+        <br>
+        <p>Best regards,<br><strong>ABL Team</strong></p>
+        """
+
+        send_email(
+            to=email,
             subject="Your message has been received",
-            message=(
-                f"Hello {first_name},\n\n"
-                "Thank you for contacting us!\n"
-                "We have received your message and our team will reply soon.\n\n"
-                "Best regards,\n"
-                "ABL Team "
-            ),
-            from_email=settings.EMAIL_HOST_USER,
-            recipient_list=[email],
-            fail_silently=True,
+            html_content=html_content
         )
+
 
         messages.success(request, "Your message has been sent successfully!")
         return redirect("main:home")
