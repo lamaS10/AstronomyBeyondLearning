@@ -24,6 +24,8 @@ def send_email(to, subject, html_content):
 
     try:
         response = requests.post(url, headers=headers, json=payload, timeout=10)
+        print("BREVO STATUS:", response.status_code)
+        print("BREVO RESPONSE:", response.text)
         return response.status_code
     except requests.exceptions.RequestException as e:
         print("Email error:", e)
