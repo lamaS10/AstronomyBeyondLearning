@@ -3,6 +3,8 @@ from django.conf import settings
 
 def send_email(to, subject, html_content):
     url = "https://api.brevo.com/v3/smtp/email"
+    print(" send_email CALLED")
+    print("TO:", to)
 
     headers = {
         "accept": "application/json",
