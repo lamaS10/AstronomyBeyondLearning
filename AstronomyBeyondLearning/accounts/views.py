@@ -11,6 +11,11 @@ from django.db.models import Count
 from planets.models import BookmarkPlanet
 from django.core.paginator import Paginator
 from games.models import QuizProgress
+from django.contrib.auth.views import PasswordResetView
+from django.template.loader import render_to_string
+from main.mailer import send_email
+from django.conf import settings
+
 
 
 
@@ -292,3 +297,26 @@ def saved_planets_in_profile(request, username):
         "profile_user": profile_user,
         "saved_planets": saved_planets, 
     })
+
+class BrevoPasswordResetView(PasswordResetView):
+
+    def send_mail(
+        self,
+        subject_template_name,
+        email_template_name,
+        context,
+        from_email,
+        to_email,
+        html_email_template_name=None,
+    ):
+        context["domain"] = settings.SITE_DOMAIN
+        context["protocol"] = settings.SITE_PROTOCOL
+
+        subject = render_to_string(subject_template_name, context).strip()
+        html_content = render_to_string(email_template_name, context)
+
+        send_email(
+            to=to_email,
+            subject=subject,
+            html_content=html_content
+        )
